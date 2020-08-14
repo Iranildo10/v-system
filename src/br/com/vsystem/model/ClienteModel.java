@@ -7,7 +7,6 @@ public class ClienteModel {
     private int cliente_id;
     private String nome;
     private String cpf;
-    private String email;
     private String apagado;
     private TelefoneModel telefone;
     private EnderecoModel endereco;
@@ -36,14 +35,6 @@ public class ClienteModel {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getApagado() {
