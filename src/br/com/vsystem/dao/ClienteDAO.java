@@ -14,19 +14,19 @@ public class ClienteDAO {
     
     private Connection con;
 
-    public ClienteDAO(Connection con) {
+    public ClienteDAO() {
         this.con = new ConnectionFactory().getConnection();
     }
     
     
     //Metodo Cadastrar Clientes
-    public void cadastraCliente(ClienteModel cli, EnderecoModel end, TelefoneModel tel){
+    public void cadastrarCliente(ClienteModel cli, EnderecoModel end, TelefoneModel tel){
         try {
             
             
             String sqlEndereco = "insert into tb_endereco (cep, endereco, numero,complemento, bairro, cidade, estado, apagado)"
                     +"values (?,?,?,?,?,?,?,?)";
-            String sqlTelefone = "insert into tb_cliente (celular, telefone, apagado) values (?,?,?)";
+            String sqlTelefone = "insert into tb_telefone (celular, telefone, apagado) values (?,?,?)";
             String sqlCliente = "insert into tb_cliente (nome, cpf, apagado, telefone_id, endereco_id) values (?,?,?,?,?)";
             
             //Cadastrar endereco
@@ -48,7 +48,7 @@ public class ClienteDAO {
             //Retornar ID do ultimo endereco cadastrado
             
             int idEndereco = 0;
-            String sql = "select max(id) id from tb_endereco";
+            String sql = "select max(endereco_id) endereco_id from tb_endereco";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -69,7 +69,7 @@ public class ClienteDAO {
             
             //Retorna ID do ultimo endereco
             int idTelefone = 0;
-            sql = "select max(id) id from tb_telefone";
+            sql = "select max(telefone_id) telefone_id from tb_telefone";
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             if(rs.next()){
@@ -98,8 +98,89 @@ public class ClienteDAO {
     }
     
     //Metodo alterar Clientes
-    public void alterarClientes(ClienteModel obj){
+    public void alterarClientes(ClienteModel cli, EnderecoModel end, TelefoneModel tel){
+        try {
+            
+            
+            String sqlEndereco = "update tb_endereco set (cep = ?, endereco = ?, numero = ?,complemento = ?, bairro = ?, cidade = ?, estado = ?, apagado? )"
+                    +"where endereco_id = ?";
+            
+            String sqlTelefone = "update tb_telefone set (celular = ?, telefone = ?, apagado = ?) where telefone_id = ?";
+            String sqlCliente = "update tb_cliente set(nome = ?, cpf = ?, apagado ?) where cliente_id = ?";
+            
+            //Retornar ID do endereco cadastrado
+            int idEndereco = 0;
+            String sql = "select endereco_id from tb_cliente where cliente_id = " + cli.getCliente_id();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                EnderecoModel e = new EnderecoModel();
+                e.setEndereco_id(rs.getInt("endereco_id"));
+                idEndereco = e.getEndereco_id();
+            }
+            
+             //Retorna ID do ultimo endereco
+            int idTelefone = 0;
+            sql =  "select telefone_id from tb_cliente where cliente_id = " + cli.getCliente_id();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                TelefoneModel t = new TelefoneModel();
+                t.setTelefone_id(rs.getInt("telefone_id"));
+                idTelefone = t.getTelefone_id();
+            }
+            
+            
+            //Alterar Endereco
+            
+            PreparedStatement stmt = con.prepareStatement(sqlEndereco);
+            
+            stmt.setString(1, end.getCep());
+            stmt.setString(2, end.getEndereco());
+            stmt.setString(3, end.getNumero());
+            stmt.setString(4, end.getComplemento());
+            stmt.setString(5, end.getBairro());
+            stmt.setString(6, end.getCidade());
+            stmt.setString(7, end.getEstado());
+            stmt.setString(8, end.getApagado());
+            stmt.setInt(9, idEndereco);
+            
+            
+            stmt.execute();
+            stmt.close();
+            
+            
+            
+            //Alterar Telefone
+            stmt = con.prepareStatement(sqlTelefone);
+            
+            stmt.setString(1, tel.getCelular());
+            stmt.setString(2, tel.getTelefone());
+            stmt.setString(3, tel.getApagado());
+            stmt.setInt(4, idTelefone);
+            
+            stmt.execute();
+            stmt.close();
+            
+           
+            
+            //Alterar cliente
+            stmt = con.prepareStatement(sqlCliente);
+            
+            stmt.setString(1, cli.getNome());
+            stmt.setString(2, cli.getCpf());
+            stmt.setString(3, cli.getApagado());
+            stmt.setInt(4, cli.getCliente_id());
+           
+            
+            stmt.execute();
+            stmt.close();
+            
     
+            JOptionPane.showMessageDialog(null, "Cliente alterado com Sucesso!!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro" + e);
+        }
     }
     
     //Metodo Exlucir Cliente

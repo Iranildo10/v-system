@@ -5,6 +5,11 @@
  */
 package br.com.vsystem.view;
 
+import br.com.vsystem.dao.ClienteDAO;
+import br.com.vsystem.model.ClienteModel;
+import br.com.vsystem.model.EnderecoModel;
+import br.com.vsystem.model.TelefoneModel;
+
 /**
  *
  * @author NoteBook
@@ -45,7 +50,7 @@ public class frmCliente extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         txtnumero = new javax.swing.JTextField();
-        txtfixo = new javax.swing.JFormattedTextField();
+        txttelefone = new javax.swing.JFormattedTextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         txtcodigo = new javax.swing.JTextField();
@@ -82,6 +87,11 @@ public class frmCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(80, 223, 152));
 
@@ -162,11 +172,11 @@ public class frmCliente extends javax.swing.JFrame {
         txtnumero.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         try {
-            txtfixo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #### - ####")));
+            txttelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #### - ####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtfixo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txttelefone.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         jLabel23.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel23.setText("Endereço:");
@@ -264,7 +274,7 @@ public class frmCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtfixo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txttelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(187, 187, 187))
                     .addGroup(painel_dadosLayout.createSequentialGroup()
                         .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -297,7 +307,7 @@ public class frmCliente extends javax.swing.JFrame {
                         .addComponent(txtcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel22)
-                        .addComponent(txtfixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txttelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(52, 52, 52)
                 .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
@@ -504,16 +514,73 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnnovoActionPerformed
 
     private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
-        // TODO add your handling code here:
+        ClienteModel cli = new ClienteModel();
+        EnderecoModel end = new EnderecoModel();
+        TelefoneModel tel = new TelefoneModel();
+        
+        cli.setNome(txtnome.getText());
+        cli.setCpf(txtcpf.getText());
+        cli.setApagado("N");
+        
+        end.setCep(txtcep.getText());
+        end.setEndereco(txtend.getText());
+        end.setNumero(txtnumero.getText());
+        end.setComplemento(txtcomplemento.getText());
+        end.setBairro(txtbairro.getText());
+        end.setCidade(txtcidade.getText());
+        end.setEstado(cbestado.getSelectedItem().toString());
+        end.setApagado("N");
+        
+        tel.setCelular(txtcelular.getText());
+        tel.setTelefone(txttelefone.getText());
+        tel.setApagado("N");
+        
+       
+        
+        ClienteDAO cliDAO = new ClienteDAO();
+        cliDAO.cadastrarCliente(cli, end, tel);
+        
+        //new Utilitarios().LimpaTela(painel_dados);
+        
+        
     }//GEN-LAST:event_btnsalvarActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
-        // TODO add your handling code here:
+       ClienteModel cli = new ClienteModel();
+        EnderecoModel end = new EnderecoModel();
+        TelefoneModel tel = new TelefoneModel();
+        
+        cli.setNome(txtnome.getText());
+        cli.setCpf(txtcpf.getText());
+        cli.setApagado("N");
+        
+        end.setCep(txtcep.getText());
+        end.setEndereco(txtend.getText());
+        end.setNumero(txtnumero.getText());
+        end.setComplemento(txtcomplemento.getText());
+        end.setBairro(txtbairro.getText());
+        end.setCidade(txtcidade.getText());
+        end.setEstado(cbestado.getSelectedItem().toString());
+        end.setApagado("N");
+        
+        tel.setCelular(txtcelular.getText());
+        tel.setTelefone(txttelefone.getText());
+        tel.setApagado("N");
+        
+        
+        ClienteDAO cliDAO = new ClienteDAO();
+        cliDAO.alterarClientes(cli, end, tel);
+        
+        //new Utilitarios().LimpaTela(painel_dados);
     }//GEN-LAST:event_btneditarActionPerformed
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnexcluirActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+       
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -586,9 +653,9 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtcomplemento;
     private javax.swing.JFormattedTextField txtcpf;
     private javax.swing.JTextField txtend;
-    private javax.swing.JFormattedTextField txtfixo;
     private javax.swing.JTextField txtnome;
     private javax.swing.JTextField txtnumero;
     private javax.swing.JTextField txtpesquisa;
+    private javax.swing.JFormattedTextField txttelefone;
     // End of variables declaration//GEN-END:variables
 }
