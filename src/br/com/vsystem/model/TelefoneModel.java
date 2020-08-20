@@ -4,7 +4,7 @@ package br.com.vsystem.model;
 public class TelefoneModel {
     //Atributos
     private int telefone_id;
-    private String tipo_telefone;
+    private String celular;
     private String telefone;
     private String apagado;
     
@@ -18,12 +18,12 @@ public class TelefoneModel {
         this.telefone_id = telefone_id;
     }
 
-    public String getTipo_telefone() {
-        return tipo_telefone;
+    public String getCelular() {
+        return celular;
     }
 
-    public void setTipo_telefone(String tipo_telefone) {
-        this.tipo_telefone = tipo_telefone;
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
     public String getTelefone() {
