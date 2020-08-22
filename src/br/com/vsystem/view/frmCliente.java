@@ -629,6 +629,8 @@ public class frmCliente extends javax.swing.JFrame {
         List<ClienteModel> lista = clidao.listarTodos();
 
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+        
+        //teste
 
         dados.setNumRows(0);
 
