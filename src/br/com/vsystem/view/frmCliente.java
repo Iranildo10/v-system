@@ -381,7 +381,7 @@ public class frmCliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaClientes);
 
         btnpesquisar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnpesquisar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vsystem/imagens/plus_24px.png"))); // NOI18N
+        btnpesquisar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vsystem/imagens/refresh_20px.png"))); // NOI18N
         btnpesquisar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnpesquisar1ActionPerformed(evt);
@@ -584,6 +584,7 @@ public class frmCliente extends javax.swing.JFrame {
         EnderecoModel end = new EnderecoModel();
         TelefoneModel tel = new TelefoneModel();
         
+        cli.setCliente_id(Integer.parseInt(txtcodigo.getText()));
         cli.setNome(txtnome.getText());
         cli.setCpf(txtcpf.getText());
         cli.setApagado("N");
