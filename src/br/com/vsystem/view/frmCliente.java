@@ -9,6 +9,8 @@ import br.com.vsystem.dao.ClienteDAO;
 import br.com.vsystem.model.ClienteModel;
 import br.com.vsystem.model.EnderecoModel;
 import br.com.vsystem.model.TelefoneModel;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -67,6 +69,7 @@ public class frmCliente extends javax.swing.JFrame {
         btnpesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
+        btnpesquisar1 = new javax.swing.JButton();
         btnnovo = new javax.swing.JButton();
         btnsalvar = new javax.swing.JButton();
         btneditar = new javax.swing.JButton();
@@ -358,9 +361,17 @@ public class frmCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "CPF", "Telefone", "Celular"
+                "Código", "Nome", "CPF", "Celular", "Telefone", "Cep", "Cidade", "Endereco", "Numero", "Estado", "Bairro", "Complemento"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false, false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelaClientes.setGridColor(new java.awt.Color(204, 204, 204));
         tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -368,13 +379,14 @@ public class frmCliente extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tabelaClientes);
-        if (tabelaClientes.getColumnModel().getColumnCount() > 0) {
-            tabelaClientes.getColumnModel().getColumn(0).setResizable(false);
-            tabelaClientes.getColumnModel().getColumn(1).setResizable(false);
-            tabelaClientes.getColumnModel().getColumn(2).setResizable(false);
-            tabelaClientes.getColumnModel().getColumn(3).setResizable(false);
-            tabelaClientes.getColumnModel().getColumn(4).setResizable(false);
-        }
+
+        btnpesquisar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnpesquisar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vsystem/imagens/refresh_20px.png"))); // NOI18N
+        btnpesquisar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpesquisar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -390,6 +402,8 @@ public class frmCliente extends javax.swing.JFrame {
                         .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnpesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnpesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -397,13 +411,15 @@ public class frmCliente extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnpesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnpesquisar))
+                    .addComponent(btnpesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consulta de clientes", jPanel2);
@@ -495,6 +511,24 @@ public class frmCliente extends javax.swing.JFrame {
 
     private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
         
+        //Carregar Dados para atualização
+        
+        jTabbedPane1.setSelectedIndex(0);
+
+        txtcodigo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 0).toString());
+        txtnome.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 1).toString());
+        txtcpf.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 2).toString());
+        txtcelular.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 3).toString());
+        txttelefone.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 4).toString());
+        txtcep.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5).toString());
+        txtcidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 6).toString());
+        txtend.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 7).toString());
+        txtnumero.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 8).toString());
+        cbestado.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 9).toString());
+        txtbairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 10).toString());
+        txtcomplemento.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 11).toString());
+        
+        
     }//GEN-LAST:event_tabelaClientesMouseClicked
 
     private void txtcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodigoActionPerformed
@@ -546,7 +580,7 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsalvarActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
-       ClienteModel cli = new ClienteModel();
+        ClienteModel cli = new ClienteModel();
         EnderecoModel end = new EnderecoModel();
         TelefoneModel tel = new TelefoneModel();
         
@@ -576,11 +610,47 @@ public class frmCliente extends javax.swing.JFrame {
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
         // TODO add your handling code here:
+        ClienteModel cli = new ClienteModel();
+        
+        cli.setCliente_id(Integer.parseInt(txtcodigo.getText()));
+        cli.setApagado("S");
+        
+        ClienteDAO cliDAO = new ClienteDAO();
+        cliDAO.excluirClientes(cli);
+        
     }//GEN-LAST:event_btnexcluirActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        
     }//GEN-LAST:event_formWindowActivated
+
+    private void btnpesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisar1ActionPerformed
+        ClienteDAO clidao = new ClienteDAO();
+        List<ClienteModel> lista = clidao.listarTodos();
+
+        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
+
+        dados.setNumRows(0);
+
+        for (ClienteModel c : lista) {
+            dados.addRow(new Object[]{
+                c.getCliente_id(),
+                c.getNome(),
+                c.getCpf(),
+                c.getTelefone().getCelular(),
+                c.getTelefone().getTelefone(),
+                c.getEndereco().getCep(),
+                c.getEndereco().getCidade(),
+                c.getEndereco().getEndereco(),
+                c.getEndereco().getNumero(),
+                c.getEndereco().getEstado(),
+                c.getEndereco().getBairro(),
+                c.getEndereco().getComplemento(),
+               
+            });
+
+        }
+    }//GEN-LAST:event_btnpesquisar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -622,6 +692,7 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnexcluir;
     private javax.swing.JButton btnnovo;
     private javax.swing.JButton btnpesquisar;
+    private javax.swing.JButton btnpesquisar1;
     private javax.swing.JButton btnsalvar;
     private javax.swing.JComboBox<String> cbestado;
     private javax.swing.JInternalFrame jInternalFrame1;

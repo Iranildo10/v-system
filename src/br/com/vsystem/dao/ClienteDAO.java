@@ -8,6 +8,9 @@ import br.com.vsystem.model.TelefoneModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ClienteDAO {
@@ -100,13 +103,12 @@ public class ClienteDAO {
     //Metodo alterar Clientes
     public void alterarClientes(ClienteModel cli, EnderecoModel end, TelefoneModel tel){
         try {
-            
-            
-            String sqlEndereco = "update tb_endereco set (cep = ?, endereco = ?, numero = ?,complemento = ?, bairro = ?, cidade = ?, estado = ?, apagado? )"
+          
+            String sqlEndereco = "update tb_endereco set (cep = ?, endereco = ?, numero = ?,complemento = ?, bairro = ?, cidade = ?, estado = ?, apagado = ? )"
                     +"where endereco_id = ?";
             
             String sqlTelefone = "update tb_telefone set (celular = ?, telefone = ?, apagado = ?) where telefone_id = ?";
-            String sqlCliente = "update tb_cliente set(nome = ?, cpf = ?, apagado ?) where cliente_id = ?";
+            String sqlCliente = "update tb_cliente set(nome = ?, cpf = ?, apagado = ?) where cliente_id = ?";
             
             //Retornar ID do endereco cadastrado
             int idEndereco = 0;
@@ -180,11 +182,91 @@ public class ClienteDAO {
             JOptionPane.showMessageDialog(null, "Cliente alterado com Sucesso!!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro" + e);
+            System.out.println(e);
         }
     }
     
     //Metodo Exlucir Cliente
-    public void excluirClientes(ClienteModel obj){
+    public void excluirClientes(ClienteModel cli){
+        
+         try {
+            
+            
+            //String sqlEndereco = "update tb_endereco set (cep = ?, endereco = ?, numero = ?,complemento = ?, bairro = ?, cidade = ?, estado = ?, apagado? )"
+                    //+"where endereco_id = ?";
+            
+            //String sqlTelefone = "update tb_telefone set (celular = ?, telefone = ?, apagado = ?) where telefone_id = ?";
+            String sqlCliente = "update tb_cliente set(apagado = ?) where cliente_id = ?";
+            
+             PreparedStatement stmt = con.prepareStatement(sqlCliente);
+           
+            //Alterar cliente
+            stmt = con.prepareStatement(sqlCliente);
+            
+            stmt.setString(1, cli.getApagado());
+            stmt.setInt(2, cli.getCliente_id());
+           
+            stmt.execute();
+            stmt.close();
+            
     
+            JOptionPane.showMessageDialog(null, "Cliente excluido com Sucesso!!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro" + e);
+        }
+    }
+    
+    public List<ClienteModel> listarTodos(){
+        
+        try {
+
+            //1 passo - criar a lista
+            List<ClienteModel> lista = new ArrayList<>();
+
+            //2 passo - criar o comando sql, organizar e executar
+            String sql = "select c.cliente_id, c.nome, c.cpf, t.celular, t.telefone, e.cep, e.cidade,  e.endereco, e.numero, e.estado, e.bairro, e.complemento from tb_cliente as c \n" +
+                            "inner join tb_endereco as e \n" +
+                            "on (c.endereco_id = e.endereco_id ) \n" +
+                            "inner join tb_telefone as t \n" +
+                            "on (c.telefone_id = t.telefone_id) \n" +
+                             "where c.apagado = 'N' ";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+
+           while(rs.next()){
+                ClienteModel cli = new ClienteModel();
+                EnderecoModel end = new EnderecoModel();
+                TelefoneModel tel = new TelefoneModel();
+                
+                cli.setCliente_id(rs.getInt("c.cliente_id"));
+                cli.setNome(rs.getString("c.nome"));
+                cli.setCpf(rs.getString("c.cpf"));
+                tel.setCelular(rs.getString("t.celular"));
+                tel.setTelefone(rs.getString("t.telefone"));
+                cli.setTelefone(tel);
+                end.setCep(rs.getString("e.cep"));
+                end.setCidade(rs.getString("e.cidade"));
+                end.setEndereco(rs.getString("e.endereco"));
+                end.setNumero(rs.getString("e.numero"));
+                end.setEstado(rs.getString("e.estado"));
+                end.setBairro(rs.getString("e.bairro"));
+                end.setComplemento(rs.getString("e.complemento"));
+                cli.setEndereco(end);
+                
+                lista.add(cli);
+                
+            }
+
+            return lista;
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro: " + " " + erro);
+            return null;
+
+        }
+        
     }
 }
