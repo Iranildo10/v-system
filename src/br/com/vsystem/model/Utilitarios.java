@@ -1,6 +1,4 @@
-
 package br.com.vsystem.model;
-
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -11,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 
 public class Utilitarios {
     
@@ -83,6 +80,7 @@ public class Utilitarios {
         
         return dataformatada;
     }
+    
     
     
 }

@@ -12,6 +12,7 @@ import br.com.vsystem.model.TelefoneModel;
 import br.com.vsystem.model.Utilitarios;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +20,25 @@ import javax.swing.table.DefaultTableModel;
  * @author NoteBook
  */
 public class frmCliente extends javax.swing.JFrame {
+    
+    
+    public boolean validarCamposNulos(){
+        
+        if(txtnome.getText().isEmpty() || txtcpf.getText().isEmpty() || txtcelular.getText().isEmpty() || txttelefone.getText().isEmpty()
+                || txtcep.getText().isEmpty() || txtcidade.getText().isEmpty() || txtend.getText().isEmpty() || txtnumero.getText().isEmpty() 
+                || txtbairro.getText().isEmpty() || txtcomplemento.getText().isEmpty()) {
+            
+            JOptionPane.showMessageDialog(null, " " + "Preencha todos os dados!");
+            
+            return false;
+            
+        }
+        else{
+            return true;
+        }
+        
+        
+    }
 
     public void ativarDesativarComponentes(boolean ativar){
         
@@ -39,12 +59,27 @@ public class frmCliente extends javax.swing.JFrame {
             txtnome.requestFocus();
             
         }
+        else{
+            txtcodigo.setEnabled(false);
+            txtnome.setEnabled(false);
+            txtcpf.setEnabled(false);
+            txtcelular.setEnabled(false);
+            txttelefone.setEnabled(false);
+            txtcep.setEnabled(false);
+            txtcidade.setEnabled(false);
+            txtend.setEnabled(false);
+            txtnumero.setEnabled(false);
+            cbestado.setEnabled(false);
+            txtbairro.setEnabled(false);
+            txtcomplemento.setEnabled(false);
+        }
         
     }
     
     
     public frmCliente() {
         initComponents();
+        ativarDesativarComponentes(false);
     }
 
     /**
@@ -583,6 +618,9 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnnovoActionPerformed
 
     private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
+        
+        if(validarCamposNulos()){
+            
         ClienteModel cli = new ClienteModel();
         EnderecoModel end = new EnderecoModel();
         TelefoneModel tel = new TelefoneModel();
@@ -609,7 +647,12 @@ public class frmCliente extends javax.swing.JFrame {
         ClienteDAO cliDAO = new ClienteDAO();
         cliDAO.cadastrarCliente(cli, end, tel);
         
-        //new Utilitarios().LimpaTela(painel_dados);
+        new Utilitarios().LimpaTela(jpdadoscliente);
+        
+        }
+        
+  
+        
         
         
     }//GEN-LAST:event_btnsalvarActionPerformed
