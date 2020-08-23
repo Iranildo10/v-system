@@ -658,7 +658,10 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsalvarActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
-        ClienteModel cli = new ClienteModel();
+        
+        if(validarCamposNulos()){
+        
+            ClienteModel cli = new ClienteModel();
         EnderecoModel end = new EnderecoModel();
         TelefoneModel tel = new TelefoneModel();
         
@@ -684,7 +687,11 @@ public class frmCliente extends javax.swing.JFrame {
         ClienteDAO cliDAO = new ClienteDAO();
         cliDAO.alterarClientes(cli, end, tel);
         
-        //new Utilitarios().LimpaTela(painel_dados);
+        new Utilitarios().LimpaTela(jpdadoscliente);
+            
+        }
+        
+        
     }//GEN-LAST:event_btneditarActionPerformed
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
