@@ -1,16 +1,28 @@
 package br.com.vsystem.model;
+import br.com.vsystem.jdbc.ConnectionFactory;
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
 public class Utilitarios {
+    
+    private Connection con;
+    
+    public Utilitarios() {
+        this.con = new ConnectionFactory().getConnection();
+    }
     
     //metodo limparCampos
     public void LimpaTela(JPanel container){
@@ -81,6 +93,6 @@ public class Utilitarios {
         return dataformatada;
     }
     
-    
+ 
     
 }
