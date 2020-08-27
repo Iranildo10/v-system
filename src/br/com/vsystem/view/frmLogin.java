@@ -56,7 +56,7 @@ public class frmLogin extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Bodoni MT Black", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vsystem/view/cloakroom_52px.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cloakroom_52px.png"))); // NOI18N
         jLabel1.setText("   VR GOMES VESTUARIO");
         jLabel1.setAutoscrolls(true);
 
