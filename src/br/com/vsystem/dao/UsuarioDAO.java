@@ -110,7 +110,7 @@ public class UsuarioDAO {
         try {
             
     
-            String sqlUsuario = "update tb_usuario set nome = ?, cpf = ?, senha = ?, cargo = ?, nivel_acesso = ?, where usuario_id = ?";
+            String sqlUsuario = "update tb_usuario set nome = ?, cpf = ?, senha = ?, cargo = ?, nivel_acesso = ? where usuario_id = ?";
             String sqlTelefone = "update tb_telefone set celular = ?, telefone = ? where telefone_id = ?";
             String sqlEndereco = "update tb_endereco set cep = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, estado = ? where endereco_id = ?";
             
