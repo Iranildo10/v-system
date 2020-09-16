@@ -436,6 +436,11 @@ public class frmFornecedor extends javax.swing.JFrame {
         jLabel3.setText("Nome:");
 
         txtpesquisa.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtpesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpesquisaActionPerformed(evt);
+            }
+        });
         txtpesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtpesquisaKeyPressed(evt);
@@ -579,29 +584,31 @@ public class frmFornecedor extends javax.swing.JFrame {
     private void txtpesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpesquisaKeyPressed
         String nome = "%" + txtpesquisa.getText() + "%";
 
-        ClienteDAO cliDAO = new ClienteDAO();
+        FornecedorDAO fornDAO = new FornecedorDAO();
         
-        List<ClienteModel> lista = cliDAO.PesquisarPorNome(nome);
+        List<FornecedorModel> lista = fornDAO.PesquisarPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaFornecedores.getModel();
 
         dados.setNumRows(0);
 
-        for (ClienteModel c : lista) {
+        for (FornecedorModel f : lista) {
             dados.addRow(new Object[]{
-                c.getCliente_id(),
-                c.getNome(),
-                c.getCpf(),
-                c.getTelefone().getCelular(),
-                c.getTelefone().getTelefone(),
-                c.getEndereco().getCep(),
-                c.getEndereco().getCidade(),
-                c.getEndereco().getEndereco(),
-                c.getEndereco().getNumero(),
-                c.getEndereco().getEstado(),
-                c.getEndereco().getBairro(),
-                c.getEndereco().getComplemento(),
-
+                f.getFornecedor_id(),
+                f.getNome_fantasia(),
+                f.getRazao_social(),
+                f.getCnpj(),
+                f.getEmail(),
+                f.getTelefone().getCelular(),
+                f.getTelefone().getTelefone(),
+                f.getEndereco().getCep(),
+                f.getEndereco().getCidade(),
+                f.getEndereco().getEndereco(),
+                f.getEndereco().getNumero(),
+                f.getEndereco().getEstado(),
+                f.getEndereco().getBairro(),
+                f.getEndereco().getComplemento(),
+               
             });
 
         }
@@ -804,6 +811,10 @@ public class frmFornecedor extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtcepKeyPressed
+
+    private void txtpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpesquisaActionPerformed
 
     /**
      * @param args the command line arguments

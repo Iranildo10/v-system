@@ -271,5 +271,40 @@ public class UsuarioDAO {
         
     }
     
+    //Método efetua login
+    public boolean efetuaLogin(String codigo, String senha){
+        try {
+            //1 passo -SQl
+            String sql = "select * from tb_usuario where usuario_id = ? and senha = ?";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, codigo);
+            stmt.setString(2, senha );
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null, "Seja bem vido ao sistema :)");
+                //FrmMenu tela = new FrmMenu();
+                //tela.usuariologado = rs.getString("nome");
+                //tela.setVisible(true);
+                
+                return true;
+                
+                
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Nao foi possivel logar no sistema :/");
+                
+                return false;
+            
+        } catch (SQLException erro) {
+             JOptionPane.showMessageDialog(null, "Erro: " + erro);
+           
+             return false;
+        }
+    }
+    
     
 }

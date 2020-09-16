@@ -271,5 +271,64 @@ public class FornecedorDAO {
         
     }
     
+    //Método para buscar fornecedor pelo nome
+    public List<FornecedorModel> PesquisarPorNome(String nome) {
+
+        try {
+
+            //1 passo - criar a lista
+            List<FornecedorModel> lista = new ArrayList<>();
+            
+            String sql = "select f.fornecedor_id, f.nome_fantasia, f.razao_social, f.cnpj, f.email, t.celular, t.telefone, e.cep, e.cidade,  e.endereco, e.numero, e.estado, e.bairro, e.complemento from tb_fornecedor as f \n" +
+                            "inner join tb_endereco as e \n" +
+                            "on (f.endereco_id = e.endereco_id ) \n" +
+                            "inner join tb_telefone as t \n" +
+                            "on (f.telefone_id = t.telefone_id) \n" +
+                             "where f.apagado = 'N' and f.nome_fantasia like ?";
+
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, nome);
+           
+
+            ResultSet rs = stmt.executeQuery();
+
+             while(rs.next()){
+                FornecedorModel forn = new FornecedorModel();
+                EnderecoModel end = new EnderecoModel();
+                TelefoneModel tel = new TelefoneModel();
+                
+                forn.setFornecedor_id(rs.getInt("f.fornecedor_id"));
+                forn.setNome_fantasia(rs.getString("f.nome_fantasia"));
+                forn.setRazao_social(rs.getString("f.razao_social"));
+                forn.setCnpj(rs.getString("f.cnpj"));
+                forn.setEmail(rs.getString("f.email"));
+                tel.setCelular(rs.getString("t.celular"));
+                tel.setTelefone(rs.getString("t.telefone"));
+                forn.setTelefone(tel);
+                end.setCep(rs.getString("e.cep"));
+                end.setCidade(rs.getString("e.cidade"));
+                end.setEndereco(rs.getString("e.endereco"));
+                end.setNumero(rs.getString("e.numero"));
+                end.setEstado(rs.getString("e.estado"));
+                end.setBairro(rs.getString("e.bairro"));
+                end.setComplemento(rs.getString("e.complemento"));
+                forn.setEndereco(end);
+                
+                lista.add(forn);
+                
+            }
+
+            return lista;
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro: " + " " + erro);
+            return null;
+
+        }
+    }
+    
     
 }
