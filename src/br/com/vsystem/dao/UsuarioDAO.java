@@ -273,6 +273,10 @@ public class UsuarioDAO {
         
     }
     
+    //
+     public List<UsuarioModel> PesquisarPorNome(String nome) {
+     return null;
+     }
     //Método efetua login
     public boolean efetuaLogin(String codigo, String senha){
         try {

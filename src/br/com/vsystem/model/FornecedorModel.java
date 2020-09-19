@@ -76,6 +76,9 @@ public class FornecedorModel {
         this.apagado = apagado;
     }
     
-    
+    @Override
+    public String toString(){
+        return this.getNome_fantasia();
+    }
     
 }

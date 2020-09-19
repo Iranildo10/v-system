@@ -633,17 +633,20 @@ public class frmUsuario extends javax.swing.JFrame {
 
         UsuarioDAO cliDAO = new UsuarioDAO();
         
-        //List<ClienteModel> lista = cliDAO.PesquisarPorNome(nome);
+        List<UsuarioModel> lista = cliDAO.PesquisarPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
 
         dados.setNumRows(0);
 
-        /*for (ClienteModel c : lista) {
+        for (UsuarioModel c : lista) {
             dados.addRow(new Object[]{
-                c.getCliente_id(),
+                c.getUsusario_id(),
                 c.getNome(),
                 c.getCpf(),
+                c.getSenha(),
+                c.getCargo(),
+                c.getNievel_acesso(),
                 c.getTelefone().getCelular(),
                 c.getTelefone().getTelefone(),
                 c.getEndereco().getCep(),
@@ -656,7 +659,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
             });
 
-        }*/
+        }
     }//GEN-LAST:event_txtpesquisaKeyPressed
 
     private void tabelaFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncionariosMouseClicked
