@@ -5,6 +5,8 @@ import br.com.vsystem.model.ClienteModel;
 import br.com.vsystem.model.UsuarioModel;
 import br.com.vsystem.model.EnderecoModel;
 import br.com.vsystem.model.TelefoneModel;
+import br.com.vsystem.view.frmMenu;
+import br.com.vsystem.view.frmSplash;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -285,17 +287,24 @@ public class UsuarioDAO {
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next()){
-                JOptionPane.showMessageDialog(null, "Seja bem vido ao sistema :)");
-                //FrmMenu tela = new FrmMenu();
-                //tela.usuariologado = rs.getString("nome");
-                //tela.setVisible(true);
+                
+                /*
+                 frmMenu tela = new frmMenu();
+                tela.usuariologado = rs.getString("nome");
+                tela.setVisible(true);
+                */
+                
+                frmSplash splash = new frmSplash();
+                splash.usuario_logado = rs.getString("nome");
+                splash.setVisible(true);
+               
                 
                 return true;
                 
                 
             }
             else
-                JOptionPane.showMessageDialog(null, "Nao foi possivel logar no sistema :/");
+                JOptionPane.showMessageDialog(null, "Nao foi possivel logar no sistema!!");
                 
                 return false;
             
