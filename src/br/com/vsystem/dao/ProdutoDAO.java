@@ -7,6 +7,7 @@ import br.com.vsystem.model.ProdutoModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -152,6 +153,78 @@ public class ProdutoDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro: " + " " + e);
             return null;
+        }
+    }
+    
+    public ProdutoModel consultaPorCodigo(int codigo){
+        try {
+
+            //Criar o comando sql, organizar e executar
+            String sql = "select * from tb_produto where produto_id = ? and apagado = 'N'";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, codigo);
+
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            ProdutoModel pro = new ProdutoModel();
+            
+            while (rs.next()) {
+           
+            pro.setProduto_id(rs.getInt("produto_id"));
+            pro.setDescricao(rs.getString("descricao"));
+            pro.setPreco(rs.getDouble("preco"));
+            pro.setBarras(rs.getString("barras"));
+            pro.setQtd_estoque(rs.getInt("qtd_estoque"));
+            
+            }
+
+            return pro;
+
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro: " + " " + erro);
+            return null;
+
+        }
+    }
+    
+    public ProdutoModel consultaPorBarras(String barras){
+        try {
+
+            //Criar o comando sql, organizar e executar
+            String sql = "select * from tb_produto where barras = ? and apagado = 'N'";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, barras);
+
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            ProdutoModel pro = new ProdutoModel();
+            
+            while (rs.next()) {
+           
+            pro.setProduto_id(rs.getInt("produto_id"));
+            pro.setDescricao(rs.getString("descricao"));
+            pro.setPreco(rs.getDouble("preco"));
+            pro.setBarras(rs.getString("barras"));
+            pro.setQtd_estoque(rs.getInt("qtd_estoque"));
+            
+            }
+
+            return pro;
+
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro: " + " " + erro);
+            return null;
+
         }
     }
 }

@@ -327,4 +327,75 @@ public class ClienteDAO {
         }
     }
     
+    //Consulta cliente por cpf
+    public ClienteModel consultaPorCpf(String cpf){
+        try {
+
+            //Criar o comando sql, organizar e executar
+            String sql = "select * from tb_cliente where cpf = ? and apagado = 'N'";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, cpf);
+
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            ClienteModel cli = new ClienteModel();
+            
+            while (rs.next()) {
+           
+            cli.setCliente_id(rs.getInt("cliente_id"));
+            cli.setNome(rs.getString("nome"));
+            cli.setCpf(rs.getString("cpf"));
+            
+            }
+
+            return cli;
+
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro: " + " " + erro);
+            return null;
+
+        }
+    }
+    
+    //Consulta cliente por codigo
+    public ClienteModel consultaPorCodigo(int codigo){
+        try {
+
+            //Criar o comando sql, organizar e executar
+            String sql = "select * from tb_cliente where cliente_id = ? and apagado = 'N'";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, codigo);
+            
+
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            ClienteModel cli = new ClienteModel();
+            
+            while (rs.next()) {
+           
+            cli.setCliente_id(rs.getInt("cliente_id"));
+            cli.setNome(rs.getString("nome"));
+            cli.setCpf(rs.getString("cpf"));
+            
+            }
+
+            return cli;
+
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro: " + " " + erro);
+            return null;
+
+        }
+    }
+    
 }
