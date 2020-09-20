@@ -107,7 +107,8 @@ public class ProdutoDAO {
             
                 obj.setProduto_id(rs.getInt("p.produto_id"));
                 obj.setDescricao(rs.getString("p.descricao"));
-                obj.setPreco(rs.getDouble("p.qtd_estoque"));
+                obj.setPreco(rs.getDouble("p.preco"));
+                obj.setQtd_estoque(rs.getInt("p.qtd_estoque"));
                 obj.setBarras(rs.getString("p.barras"));
                 
                 f.setNome_fantasia(rs.getString("f.nome_fantasia"));
@@ -140,7 +141,8 @@ public class ProdutoDAO {
             
                 obj.setProduto_id(rs.getInt("p.produto_id"));
                 obj.setDescricao(rs.getString("p.descricao"));
-                obj.setPreco(rs.getDouble("p.qtd_estoque"));
+                obj.setPreco(rs.getDouble("p.preco"));
+                obj.setQtd_estoque(rs.getInt("p.qtd_estoque"));
                 obj.setBarras(rs.getString("p.barras"));
                 
                 f.setNome_fantasia(rs.getString("f.nome_fantasia"));

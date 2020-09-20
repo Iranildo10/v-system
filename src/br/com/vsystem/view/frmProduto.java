@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.vsystem.view;
 
 import br.com.vsystem.dao.ClienteDAO;
@@ -79,8 +75,8 @@ public class frmProduto extends javax.swing.JFrame {
         tabelaProduto.getColumnModel().getColumn(1).setPreferredWidth(200);
         tabelaProduto.getColumnModel().getColumn(2).setPreferredWidth(100);
         tabelaProduto.getColumnModel().getColumn(3).setPreferredWidth(115);
-        tabelaProduto.getColumnModel().getColumn(4).setPreferredWidth(110);
-        tabelaProduto.getColumnModel().getColumn(5).setPreferredWidth(70);
+        tabelaProduto.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tabelaProduto.getColumnModel().getColumn(5).setPreferredWidth(200);
               
     }
 
@@ -459,16 +455,19 @@ public class frmProduto extends javax.swing.JFrame {
         txtdescricao.setText(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 1).toString());
         txtpreco.setText(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 2).toString());
         txtqtdestoque.setText(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 3).toString());
+        txtbarras.setText(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 4).toString());
         
         FornecedorModel f = new FornecedorModel();
         FornecedorDAO dao =new FornecedorDAO();
         
-        f = (FornecedorModel) dao.PesquisarPorNome(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 4).toString());
+        f = (FornecedorModel) dao.PesquisarPorNome(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 5).toString());
         
         cbfornecedor.removeAllItems();
         cbfornecedor.getModel().setSelectedItem(f);
         
-        txtbarras.setText(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 5).toString());
+        btnsalvar.setEnabled(false);
+        
+        
         
     }//GEN-LAST:event_tabelaProdutoMouseClicked
 
@@ -574,7 +573,7 @@ public class frmProduto extends javax.swing.JFrame {
                 p.getPreco(),
                 p.getQtd_estoque(),
                 p.getBarras(),
-                p.getFornecedor().getNome_fantasia()
+                p.getFornecedor().getNome_fantasia(),
             });
 
         }
