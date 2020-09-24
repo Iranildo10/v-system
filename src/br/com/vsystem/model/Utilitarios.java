@@ -78,7 +78,7 @@ public class Utilitarios {
     public String retornaDataBR(){
         
         Date agora = new Date();
-        SimpleDateFormat dataBr = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dataBr = new SimpleDateFormat("dd/MM/yyyy hh/mm/ss");
         String dataformatada = dataBr.format(agora);
         
         return dataformatada;
@@ -87,7 +87,7 @@ public class Utilitarios {
     public String retornaDataMundial(){
         
         Date agora = new Date();
-        SimpleDateFormat dataM = new SimpleDateFormat("yyyy/MM/dd");// hh/mm/ss
+        SimpleDateFormat dataM = new SimpleDateFormat("yyyy/MM/dd hh/mm/ss");// hh/mm/ss
         String dataformatada = dataM.format(agora);
         
         return dataformatada;
