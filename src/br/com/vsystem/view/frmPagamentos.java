@@ -2,7 +2,15 @@
 package br.com.vsystem.view;
 
 
+import br.com.vsystem.dao.ItemVendaDAO;
+import br.com.vsystem.dao.ProdutoDAO;
+import br.com.vsystem.dao.VendaDAO;
 import br.com.vsystem.model.ClienteModel;
+import br.com.vsystem.model.ItemVendaModel;
+import br.com.vsystem.model.ProdutoModel;
+import br.com.vsystem.model.UsuarioModel;
+import br.com.vsystem.model.Utilitarios;
+import br.com.vsystem.model.VendaModel;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -13,9 +21,10 @@ import javax.swing.table.DefaultTableModel;
 public class frmPagamentos extends javax.swing.JFrame {
 
     ClienteModel cliente = new ClienteModel();
+    UsuarioModel vendedor;
     String Obs;
     DefaultTableModel carrinho;
-    double pcartao = 0, pcheque = 0, pdinheiro = 0, poutros = 0, totalpago = 0, totalvenda = 0, troco = 0;
+    double pcartao = 0, pcheque = 0, pdinheiro = 0, poutros = 0, totalpago = 0, totalvenda = 0,  troco = 0, desconto = 0;
     
     public frmPagamentos() {
         initComponents();
@@ -39,7 +48,7 @@ public class frmPagamentos extends javax.swing.JFrame {
         pcheque = Double.parseDouble(txtcheque.getText());
         pdinheiro = Double.parseDouble(txtdinheiro.getText());
         poutros = Double.parseDouble(txtoutros.getText());
-        totalvenda = Double.parseDouble(txttotal.getText());
+        
         
         //Calcula troco
         totalpago = pcartao + pcheque + pdinheiro + poutros;
@@ -230,26 +239,41 @@ public class frmPagamentos extends javax.swing.JFrame {
 
     private void btnfinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfinalizarActionPerformed
         
+        System.out.println("Entrou no finalizar venda");
         
-        //Vendas objv = new Vendas();
+        VendaModel objv = new VendaModel();
         
         //Dados do cliente(cliente_id)
-        //objv.setCliente(cliente);
+        objv.setCliente(cliente);
+        
+        //Dados do vendedor
+        objv.setUsuario(vendedor);
         
         //Recuperando data no formato mundial
-        //Utilitarios util = new Utilitarios();
-        //String datamysql = util.retornaDataMundial();
-        //objv.setData_venda(datamysql);
+        Utilitarios util = new Utilitarios();
+        String datamysql = util.retornaDataMundial();
+        objv.setData_venda(datamysql);
         
         //Total da venda
-        //objv.setTotal_venda(totalvenda);
-        //objv.setObs(Obs);
+        objv.setTotal_venda(totalvenda);
+        objv.setObservacao(Obs);
         
-        //VendasDAO dao_v = new VendasDAO();
-        //dao_v.cadastrarVenda(objv);
+        //Desconto da venda
+        objv.setDesconto(desconto);
+       
+        
+        //Status venda F = finalizada, C = cancelada
+        objv.setStatus_venda("F");
+        
+        
+        
+        VendaDAO dao_v = new VendaDAO();
+        dao_v.cadastrarVenda(objv);
+        
+        System.out.println("Entrou no finalizar venda");
         
         //Retorna o id da ultima venda
-        //objv.setId(dao_v.retornaUltimaVenda());
+        objv.setVenda_id(dao_v.retornaUltimaVenda());
         
         //System.out.println(objv.getId());
         
@@ -259,31 +283,31 @@ public class frmPagamentos extends javax.swing.JFrame {
         for(int i = 0; i< carrinho.getRowCount() ; i++ ){
             
             int qtd_estoque, qtd_comprada, qtd_atualizada;
-            //ProdutosDAO dao_produto = new ProdutosDAO();
+            ProdutoDAO dao_produto = new ProdutoDAO();
             
             
-            //ItemVenda item = new ItemVenda();
-            //Produtos objp = new Produtos();
+            ItemVendaModel item = new ItemVendaModel();
+            ProdutoModel objp = new ProdutoModel();
             
-            //objp.setId(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
+            objp.setProduto_id(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
             
-           // item.setVenda(objv);
+            item.setVenda(objv);
            
-            //item.setProduto(objp);
+            item.setProduto(objp);
           
-            //item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
+            item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
            
-            //item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
+            item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
             
             //Baixa no estoque
-            //qtd_estoque = dao_produto.retornaEstoqueAtual(objp.getId());
+            qtd_estoque = dao_produto.retornaEstoqueAtual(objp.getProduto_id());
             qtd_comprada = Integer.parseInt(carrinho.getValueAt(i, 2).toString());
-            //qtd_atualizada = qtd_estoque - qtd_comprada;
-            //dao_produto.baixaEstoque(objp.getId(), qtd_atualizada);
+            qtd_atualizada = qtd_estoque - qtd_comprada;
+            dao_produto.baixaEstoque(objp.getProduto_id(), qtd_atualizada);
             
             
-            //ItemVendaDAO daoitem = new ItemVendaDAO();
-            //daoitem.cadastraItem(item);
+            ItemVendaDAO daoitem = new ItemVendaDAO();
+            daoitem.cadastraItem(item);
             
         };
         

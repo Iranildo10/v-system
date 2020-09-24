@@ -292,14 +292,13 @@ public class UsuarioDAO {
             
             if(rs.next()){
                 
-                /*
-                 frmMenu tela = new frmMenu();
-                tela.usuariologado = rs.getString("nome");
-                tela.setVisible(true);
-                */
+                UsuarioModel usuario = new UsuarioModel();
+                usuario.setUsusario_id(rs.getInt("usuario_id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setNievel_acesso(rs.getString("nivel_acesso"));
                 
                 frmSplash splash = new frmSplash();
-                splash.usuario_logado = rs.getString("nome");
+                splash.usuario_logado = usuario;
                 splash.setVisible(true);
                
                 

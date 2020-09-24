@@ -2,12 +2,13 @@
 package br.com.vsystem.view;
 
 
+import br.com.vsystem.model.UsuarioModel;
 import static java.lang.Thread.sleep;
 
 public class frmSplash extends javax.swing.JFrame {
 
     
-    public String usuario_logado;
+    public UsuarioModel usuario_logado;
     
     public frmSplash() {
         initComponents();
