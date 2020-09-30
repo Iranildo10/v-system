@@ -190,6 +190,11 @@ public class frmMenu extends javax.swing.JFrame {
         jMenu2.setText("Funcionários");
 
         jMenuItem2.setText("Controle de funcionários");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -198,6 +203,11 @@ public class frmMenu extends javax.swing.JFrame {
         jMenu3.setText("Fornecedores");
 
         jMenuItem3.setText("Controle de fornecedores");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem3);
 
         jMenuBar1.add(jMenu3);
@@ -209,6 +219,11 @@ public class frmMenu extends javax.swing.JFrame {
         jMenu4.add(jMenuItem4);
 
         jMenuItem5.setText("Consulta de produtos");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem5);
 
         jMenuBar1.add(jMenu4);
@@ -290,7 +305,7 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-      lblusuario.setText(usuariologado.getNome());
+        lblusuario.setText(usuariologado.getNome());
       
         Timer timer = new Timer(1000, new hora()) ;
         timer.start();
@@ -309,7 +324,7 @@ public class frmMenu extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         frmCliente cliente = new frmCliente();
                 
-                cliente.setVisible(true);
+        cliente.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -317,6 +332,22 @@ public class frmMenu extends javax.swing.JFrame {
         vendas.vendedor = usuariologado;
         vendas.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+         frmUsuario usuario = new frmUsuario();
+                
+         usuario.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        frmFornecedor fornecedor = new frmFornecedor();
+        fornecedor.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        frmProduto produto = new frmProduto();
+        produto.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

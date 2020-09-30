@@ -33,7 +33,10 @@ public class frmPagamentos extends javax.swing.JFrame {
         txtoutros.setText("0");
         txtdinheiro.setText("0");
         txttroco.setText("0");
-        
+        txttroco.setEnabled(false);
+        txttotal.setEnabled(false);
+
+                
     }
 
     /**
@@ -311,7 +314,7 @@ public class frmPagamentos extends javax.swing.JFrame {
             
         };
         
-        
+        this.dispose();
         
         JOptionPane.showMessageDialog(null, "Venda Finalizada!!");
         
