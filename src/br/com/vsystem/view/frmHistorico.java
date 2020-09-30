@@ -195,6 +195,9 @@ public class frmHistorico extends javax.swing.JFrame {
         LocalDate data_inicio = LocalDate.parse(txtdatainicio.getText(), formato);
         LocalDate data_fim = LocalDate.parse(txtdatafim.getText(), formato);
         
+        System.out.println(data_inicio);
+        System.out.println(data_fim);
+        
         VendaDAO dao = new VendaDAO();
         
         List<VendaModel> lista = dao.listarVendasPorPeriodo(data_inicio, data_fim);

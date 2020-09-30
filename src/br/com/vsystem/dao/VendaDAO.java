@@ -88,32 +88,26 @@ public class VendaDAO {
             List<VendaModel> lista = new ArrayList<>();
             
             //Criar consulta sql
-            String sql = "select v.venda_id, v.data_venda, c.nome, v.total_venda, v.observacoes, v.desconto from tb_venda as v \n" +
+            String sql = "select v.venda_id, DATE_FORMAT(v.data_venda, '%Y/%m/%d %k:%i:%s') as data_venda, c.nome, v.total_venda, v.observacoes, v.desconto from tb_venda as v \n" +
                          "inner join tb_cliente as c \n" +
-                         "on (v.cliente_id = c.cliente_id) where v.venda_id = 8";
+                         "on (v.cliente_id = c.cliente_id) where v.data_venda BETWEEN ? AND ?";
             
             //v.data_venda BETWEEN ? AND ?
             
             PreparedStatement stmt = con.prepareStatement(sql);
             
-            stmt.setString(1, data_inicio.toString());
-            stmt.setString(2, data_fim.toString());
+            stmt.setString(1, data_inicio.toString() + " 00:00:00");
+            stmt.setString(2, data_fim.toString() + " 23:59:00 ");
             
             ResultSet rs = stmt.executeQuery();
-            
-            //Formatar a data que vem do MYSQL
-            SimpleDateFormat dataBr = new SimpleDateFormat("dd/MM/yyyy hh/mm/ss");
-            
-            
+       
             while(rs.next()){
                 VendaModel obj = new VendaModel();
                 ClienteModel c = new ClienteModel();
                 
                 obj.setVenda_id(rs.getInt("v.venda_id"));
                 
-                //String dataformatada = dataBr.format(rs.getString("v.data_venda"));
-                
-                obj.setData_venda(rs.getString("v.data_venda"));
+                obj.setData_venda(rs.getString("data_venda"));
                 c.setNome(rs.getString("c.nome"));
                 obj.setTotal_venda(rs.getDouble("v.total_venda"));
                 obj.setObservacao(rs.getString("v.observacoes"));
