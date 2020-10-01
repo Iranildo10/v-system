@@ -3,6 +3,8 @@ package br.com.vsystem.dao;
 
 import br.com.vsystem.jdbc.ConnectionFactory;
 import br.com.vsystem.model.ClienteModel;
+import br.com.vsystem.model.ItemVendaModel;
+import br.com.vsystem.model.ProdutoModel;
 import br.com.vsystem.model.VendaModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -88,7 +90,7 @@ public class VendaDAO {
             List<VendaModel> lista = new ArrayList<>();
             
             //Criar consulta sql
-            String sql = "select v.venda_id, DATE_FORMAT(v.data_venda, '%Y/%m/%d %k:%i:%s') as data_venda, c.nome, v.total_venda, v.observacoes, v.desconto from tb_venda as v \n" +
+            String sql = "select v.venda_id, DATE_FORMAT(v.data_venda, '%Y/%m/%d %H:%i:%s') as data_venda, c.nome, v.total_venda, v.observacoes, v.desconto from tb_venda as v \n" +
                          "inner join tb_cliente as c \n" +
                          "on (v.cliente_id = c.cliente_id) where v.data_venda BETWEEN ? AND ?";
             
@@ -122,6 +124,47 @@ public class VendaDAO {
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível retornar as vendas : " + " " + e);
+            return null;
+        }
+        
+    }
+    
+    //Listar Itens da venda
+    public List<ItemVendaModel> listarItensVenda(int venda_id){
+    
+        try {
+            
+            List<ItemVendaModel> lista = new ArrayList<>();
+            
+            String sql = "select  p.produto_id, p.descricao, p.barras, iv.qtd, iv.subtotal from tb_itensvenda as iv \n" +
+                         "inner join tb_venda as v \n" +
+                         "inner join tb_produto as p \n" +
+                         "on (v.venda_id = iv.venda_id and iv.produto_id = p.produto_id) where v.venda_id = ?";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1, venda_id);
+     
+            ResultSet rs = stmt.executeQuery();
+       
+            while(rs.next()){
+                ItemVendaModel iv = new ItemVendaModel();
+                ProdutoModel p = new ProdutoModel();
+                p.setProduto_id(rs.getInt("p.produto_id"));
+                p.setDescricao(rs.getString("p.descricao"));
+                p.setBarras(rs.getString("p.barras"));
+                iv.setQtd(rs.getInt("iv.qtd"));
+                iv.setSubtotal(rs.getDouble("iv.subtotal"));
+                iv.setProduto(p);
+              
+                lista.add(iv);
+                
+            }
+            
+            return lista;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível retornar os itens da venda selecionada : " + " " + e);
             return null;
         }
         
