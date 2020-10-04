@@ -90,7 +90,7 @@ public class VendaDAO {
             List<VendaModel> lista = new ArrayList<>();
             
             //Criar consulta sql
-            String sql = "select v.venda_id, DATE_FORMAT(v.data_venda, '%Y/%m/%d %H:%i:%s') as data_venda, c.nome, v.total_venda, v.observacoes, v.desconto from tb_venda as v \n" +
+            String sql = "select v.venda_id, DATE_FORMAT(v.data_venda, '%Y/%m/%d %H:%i:%s') as data_venda, c.nome, v.total_venda, v.observacoes, v.desconto, v.status_venda from tb_venda as v \n" +
                          "inner join tb_cliente as c \n" +
                          "on (v.cliente_id = c.cliente_id) where v.data_venda BETWEEN ? AND ?";
             
@@ -113,6 +113,7 @@ public class VendaDAO {
                 c.setNome(rs.getString("c.nome"));
                 obj.setTotal_venda(rs.getDouble("v.total_venda"));
                 obj.setObservacao(rs.getString("v.observacoes"));
+                obj.setStatus_venda(rs.getString("v.status_venda"));
                 obj.setCliente(c);
                 
                 
@@ -168,6 +169,30 @@ public class VendaDAO {
             return null;
         }
         
+    }
+    
+    //Cancelar venda
+    public void cancelarVenda(int venda_id){
+        try {
+            
+            //STATUS VENDA F = FINALIZADA, C = CANCELADA
+
+            //1 passo - criar o comando sql
+            String sql = "UPDATE tb_venda SET status_venda = 'C' where venda_id = ? ";
+
+            //2 passo - conectar o banco de dados e organizar o comando sql
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, venda_id);
+     
+            stmt.execute();
+            stmt.close();
+            
+            JOptionPane.showMessageDialog(null, "Venda cancelada com sucesso! ");
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro ao cancelar venda. Erro: " + " " + erro);
+        }
     }
     
 }

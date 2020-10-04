@@ -5,9 +5,13 @@ package br.com.vsystem.view;
 import br.com.vsystem.dao.VendaDAO;
 import br.com.vsystem.model.ItemVendaModel;
 import br.com.vsystem.model.VendaModel;
+import java.awt.Color;
+import java.awt.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -37,9 +41,15 @@ public class frmHistorico extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaItensVenda = new javax.swing.JTable();
+        btncancelarvenda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Historico de vendas");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(80, 223, 152));
 
@@ -152,7 +162,7 @@ public class frmHistorico extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Data da venda", "Cliente", "Total da venda", "Desconto", "Observações"
+                "Código", "Data da venda", "Cliente", "Total da venda", "Desconto", "Observações", "Status"
             }
         ));
         tabelaHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,9 +171,6 @@ public class frmHistorico extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tabelaHistorico);
-        if (tabelaHistorico.getColumnModel().getColumnCount() > 0) {
-            tabelaHistorico.getColumnModel().getColumn(5).setHeaderValue("Observações");
-        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -211,6 +218,15 @@ public class frmHistorico extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btncancelarvenda.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btncancelarvenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel_24px.png"))); // NOI18N
+        btncancelarvenda.setText("Cancelar");
+        btncancelarvenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarvendaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -221,7 +237,10 @@ public class frmHistorico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btncancelarvenda)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -234,10 +253,10 @@ public class frmHistorico extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btncancelarvenda)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
-
-        jPanel3.getAccessibleContext().setAccessibleName("Vendas");
 
         pack();
         setLocationRelativeTo(null);
@@ -252,6 +271,8 @@ public class frmHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdatafimKeyPressed
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
+        
+        btncancelarvenda.setEnabled(false);
         //botao buscar venda por periodo
         
         //Receber as datas
@@ -271,17 +292,50 @@ public class frmHistorico extends javax.swing.JFrame {
         dados.setNumRows(0);
         
         for (VendaModel v : lista) {
+            
+            String status_venda = "";
+            
+            if(v.getStatus_venda().equals("F")){
+                status_venda = "Finalizada";
+            }
+            if(v.getStatus_venda().equals("C")){
+                status_venda = "Cancelada";
+            }
+            
             dados.addRow(new Object[]{
                 v.getVenda_id(),
                 v.getData_venda(),
                 v.getCliente().getNome(),
                 v.getTotal_venda(),
                 v.getDesconto(),
-                v.getObservacao()
-                
+                v.getObservacao(),
+                //v.getStatus_venda()
+                status_venda
             });
 
         }
+        
+        tabelaHistorico.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+         
+                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+                {
+                    
+                    String status_venda = lista.get(row).getStatus_venda();
+                    final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    
+                    c.setBackground("F".equals(status_venda) ? Color.GREEN : "C".equals(status_venda) ? Color.RED : Color.WHITE);
+                    c.setForeground("F".equals(status_venda) ? Color.BLACK : "C".equals(status_venda) ? Color.WHITE : Color.BLACK);
+                    
+                    if(isSelected){
+                        c.setBackground(Color.getColor("636363"));
+                        c.setForeground(Color.getColor("DEDEDE"));
+                    }
+                    return c;
+                }
+                
+                
+         });
+        
         
     }//GEN-LAST:event_btnpesquisarActionPerformed
 
@@ -294,6 +348,21 @@ public class frmHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdatafimActionPerformed
 
     private void tabelaHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaHistoricoMouseClicked
+        
+        
+        
+        if(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 6).toString().equals("Cancelada")){
+            btncancelarvenda.setEnabled(false);
+        }
+        if(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 6).toString().equals("Finalizada") ){
+            btncancelarvenda.setEnabled(true);
+        }
+        
+        
+       //System.out.println(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 6).toString());
+        
+        
+        
         int venda_id = Integer.parseInt(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 0).toString());
  
         VendaDAO vdao = new VendaDAO();
@@ -324,6 +393,18 @@ public class frmHistorico extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_tabelaHistoricoMouseClicked
+
+    private void btncancelarvendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarvendaActionPerformed
+        int venda_id = Integer.parseInt(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 0).toString());
+ 
+        VendaDAO vdao = new VendaDAO();
+        
+        vdao.cancelarVenda(venda_id);
+    }//GEN-LAST:event_btncancelarvendaActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //btncancelarvenda.setEnabled(false);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -362,6 +443,7 @@ public class frmHistorico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btncancelarvenda;
     private javax.swing.JButton btnpesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
