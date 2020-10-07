@@ -84,6 +84,15 @@ public class Utilitarios {
         return dataformatada;
     }
     
+    public String retornaDataBR2(){
+        
+        Date agora = new Date();
+        SimpleDateFormat dataBr = new SimpleDateFormat("dd/MM/yyyy");
+        String dataformatada = dataBr.format(agora);
+        
+        return dataformatada;
+    }
+    
     public String retornaDataMundial(){
         
         Date agora = new Date();

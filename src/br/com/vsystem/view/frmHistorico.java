@@ -4,6 +4,7 @@ package br.com.vsystem.view;
 
 import br.com.vsystem.dao.VendaDAO;
 import br.com.vsystem.model.ItemVendaModel;
+import br.com.vsystem.model.Utilitarios;
 import br.com.vsystem.model.VendaModel;
 import java.awt.Color;
 import java.awt.Component;
@@ -20,6 +21,11 @@ public class frmHistorico extends javax.swing.JFrame {
    
     public frmHistorico() {
         initComponents();
+        
+        Utilitarios util = new Utilitarios();
+        txtdatainicio.setText(util.retornaDataBR2());
+        txtdatafim.setText(util.retornaDataBR2());
+        btncancelarvenda.setEnabled(false);
     }
 
    
@@ -348,21 +354,8 @@ public class frmHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdatafimActionPerformed
 
     private void tabelaHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaHistoricoMouseClicked
-        
-        
-        
-        if(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 6).toString().equals("Cancelada")){
-            btncancelarvenda.setEnabled(false);
-        }
-        if(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 6).toString().equals("Finalizada") ){
-            btncancelarvenda.setEnabled(true);
-        }
-        
-        
+    
        //System.out.println(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 6).toString());
-        
-        
-        
         int venda_id = Integer.parseInt(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 0).toString());
  
         VendaDAO vdao = new VendaDAO();
@@ -385,8 +378,12 @@ public class frmHistorico extends javax.swing.JFrame {
 
         }
         
-        
-        //System.out.println(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 0).toString());
+        if(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 6).toString().equals("Cancelada")){
+            btncancelarvenda.setEnabled(false);
+        }
+        if(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 6).toString().equals("Finalizada") ){
+            btncancelarvenda.setEnabled(true);
+        }
         
         
         
