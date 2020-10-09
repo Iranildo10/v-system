@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -102,6 +103,37 @@ public class Utilitarios {
         return dataformatada;
     }
     
- 
+    public boolean validaCPFouCNPJigual(String tabela, String cpfOuCnpj, String valor){
+        try {
+            
+            System.out.println(tabela + cpfOuCnpj +  valor);
+
+            String sql = "SELECT * FROM " + tabela + "  WHERE " + cpfOuCnpj + " = '" + valor + "' ";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            //stmt.setString(1, tabela);
+            //stmt.setString(2, cpfOuCnpj);
+            //stmt.setString(3, valor);
+           
+
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) {
+                return false;
+            }
+            else
+                return true;
+
+            
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro: " + " " + erro);
+            return false;
+
+        }
+        
+    }
     
 }

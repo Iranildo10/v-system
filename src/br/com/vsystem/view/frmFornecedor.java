@@ -729,15 +729,23 @@ public class frmFornecedor extends javax.swing.JFrame {
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
         
-        FornecedorModel forn = new FornecedorModel();
+         Object[] options = { "Sim", "Não" };
+        switch (JOptionPane.showOptionDialog(null, "Deseja excluir o cadastro?", "Confirmação", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options[0])) {
+            case 0:
+                FornecedorModel forn = new FornecedorModel();
         
-        forn.setFornecedor_id(Integer.parseInt(txtcodigo.getText()));
-        forn.setApagado("S");
+                forn.setFornecedor_id(Integer.parseInt(txtcodigo.getText()));
+                forn.setApagado("S");
         
-        FornecedorDAO fornDAO = new FornecedorDAO();
-        fornDAO.excluirFornecedor(forn);
+                FornecedorDAO fornDAO = new FornecedorDAO();
+                fornDAO.excluirFornecedor(forn);
         
         new Utilitarios().LimpaTela(jpdadosfornecedor);
+                break;
+            case 1:
+                break;
+        }
+        
             
         
         

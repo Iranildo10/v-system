@@ -26,13 +26,17 @@ public class ClienteDAO {
     //Metodo Cadastrar Clientes
     public void cadastrarCliente(ClienteModel cli, EnderecoModel end, TelefoneModel tel){
         
-    
-        try {
+        Utilitarios util = new Utilitarios();
+        
+        if(util.validaCPFouCNPJigual("tb_cliente", "cpf", cli.getCpf())){
+            try {
      
             String sqlEndereco = "insert into tb_endereco (cep, endereco, numero,complemento, bairro, cidade, estado, apagado)"
                     +"values (?,?,?,?,?,?,?,?)";
             String sqlTelefone = "insert into tb_telefone (celular, telefone, apagado) values (?,?,?)";
             String sqlCliente = "insert into tb_cliente (nome, cpf, apagado, telefone_id, endereco_id) values (?,?,?,?,?)";
+            
+            
             
             //Cadastrar endereco
             
@@ -100,6 +104,12 @@ public class ClienteDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro" + e);
         }
+        }
+        else
+            JOptionPane.showMessageDialog(null, "CPF já utilizado!!");
+            
+    
+        
         
     }
     

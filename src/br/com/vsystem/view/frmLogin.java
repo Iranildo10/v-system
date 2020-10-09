@@ -170,7 +170,6 @@ public class frmLogin extends javax.swing.JFrame {
             
             UsuarioDAO dao = new UsuarioDAO();
             
-            
             if (dao.efetuaLogin(codigo, senha)) {
                 this.dispose();
                 //new frmSplash().setVisible(true);

@@ -539,14 +539,21 @@ public class frmProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btneditarActionPerformed
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
-
-        ProdutoModel pro = new ProdutoModel();
+        Object[] options = { "Sim", "Não" };
+        switch (JOptionPane.showOptionDialog(null, "Deseja excluir o cadastro?", "Confirmação", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options[0])) {
+            case 0:
+                ProdutoModel pro = new ProdutoModel();
         
-        pro.setProduto_id(Integer.parseInt(txtcodigo.getText()));
-        pro.setApagado("S");
+                pro.setProduto_id(Integer.parseInt(txtcodigo.getText()));
+                pro.setApagado("S");
         
-        ProdutoDAO cliDAO = new ProdutoDAO();
-        cliDAO.excluirProduto(pro);
+                ProdutoDAO cliDAO = new ProdutoDAO();
+                cliDAO.excluirProduto(pro);
+                break;
+            case 1:
+                break;
+        }
+        
         
     }//GEN-LAST:event_btnexcluirActionPerformed
 

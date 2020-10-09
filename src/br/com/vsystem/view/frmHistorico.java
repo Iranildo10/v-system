@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -354,8 +355,7 @@ public class frmHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdatafimActionPerformed
 
     private void tabelaHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaHistoricoMouseClicked
-    
-       //System.out.println(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 6).toString());
+       
         int venda_id = Integer.parseInt(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 0).toString());
  
         VendaDAO vdao = new VendaDAO();
@@ -392,11 +392,19 @@ public class frmHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaHistoricoMouseClicked
 
     private void btncancelarvendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarvendaActionPerformed
-        int venda_id = Integer.parseInt(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 0).toString());
+         Object[] options = { "Sim", "Não" };
+        switch (JOptionPane.showOptionDialog(null, "Deseja cancelar a venda?", "Confirmação", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options[0])) {
+            case 0:
+                int venda_id = Integer.parseInt(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 0).toString());
  
-        VendaDAO vdao = new VendaDAO();
+                VendaDAO vdao = new VendaDAO();
         
-        vdao.cancelarVenda(venda_id);
+                vdao.cancelarVenda(venda_id);
+                break;
+            case 1:
+                break;
+        }
+
     }//GEN-LAST:event_btncancelarvendaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

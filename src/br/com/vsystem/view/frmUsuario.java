@@ -790,14 +790,21 @@ public class frmUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btneditarActionPerformed
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
-        // TODO add your handling code here:
-        UsuarioModel fun = new UsuarioModel();
+        Object[] options = { "Sim", "Não" };
+        switch (JOptionPane.showOptionDialog(null, "Deseja excluir o cadastro?", "Confirmação", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options[0])) {
+            case 0:
+                UsuarioModel fun = new UsuarioModel();
         
-        fun.setUsusario_id(Integer.parseInt(txtcodigo.getText()));
-        fun.setApagado("S");
+                fun.setUsusario_id(Integer.parseInt(txtcodigo.getText()));
+                fun.setApagado("S");
         
-        UsuarioDAO funDAO = new UsuarioDAO();
-        funDAO.excluirUsuario(fun);
+                UsuarioDAO funDAO = new UsuarioDAO();
+                funDAO.excluirUsuario(fun);
+                break;
+            case 1:
+                break;
+        }
+        
         
     }//GEN-LAST:event_btnexcluirActionPerformed
 

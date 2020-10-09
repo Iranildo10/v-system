@@ -727,14 +727,21 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btneditarActionPerformed
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
-        // TODO add your handling code here:
-        ClienteModel cli = new ClienteModel();
         
-        cli.setCliente_id(Integer.parseInt(txtcodigo.getText()));
-        cli.setApagado("S");
         
-        ClienteDAO cliDAO = new ClienteDAO();
-        cliDAO.excluirClientes(cli);
+        Object[] options = { "Sim", "Não" };
+        switch (JOptionPane.showOptionDialog(null, "Deseja realmente excluir o cadastro?", "Confirmação", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options[0])) {
+            case 0:
+                ClienteModel cli = new ClienteModel();
+                cli.setCliente_id(Integer.parseInt(txtcodigo.getText()));
+                cli.setApagado("S");
+                ClienteDAO cliDAO = new ClienteDAO();
+                cliDAO.excluirClientes(cli);
+                break;
+            case 1:
+                break;
+        }
+        
         
     }//GEN-LAST:event_btnexcluirActionPerformed
 
