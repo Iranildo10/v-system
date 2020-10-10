@@ -5,6 +5,7 @@ import br.com.vsystem.jdbc.ConnectionFactory;
 import br.com.vsystem.model.ClienteModel;
 import br.com.vsystem.model.ItemVendaModel;
 import br.com.vsystem.model.ProdutoModel;
+import br.com.vsystem.model.UsuarioModel;
 import br.com.vsystem.model.VendaModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -166,6 +167,99 @@ public class VendaDAO {
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível retornar os itens da venda selecionada : " + " " + e);
+            return null;
+        }
+        
+    }
+    
+    //RELATORIO CLIENTE 
+    public List<VendaModel> RelatorioVendasCliente(LocalDate data_inicio, LocalDate data_fim){
+    
+        try {
+            //Criar a lista de produtos que sera alimentada pelo select
+            List<VendaModel> lista = new ArrayList<>();
+            
+            //Criar consulta sql
+            String sql = "select c.cliente_id, c.nome, v.total_venda, i.qtd  from tb_venda as v \n" + 
+                         "inner join tb_cliente as c \n " +
+                         "on (v.cliente_id = c.cliente_id) \n" + 
+                         "inner join tb_itensvenda as i \n" +
+                         "on (i.venda_id = v.venda_id) \n" +
+                         "where v.data_venda BETWEEN ? AND ?";  
+      
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, data_inicio.toString() + " 00:00:00");
+            stmt.setString(2, data_fim.toString() + " 23:59:00 ");
+            
+            ResultSet rs = stmt.executeQuery();
+       
+            while(rs.next()){
+                VendaModel obj = new VendaModel();
+                ClienteModel c = new ClienteModel();
+                ItemVendaModel i = new ItemVendaModel();
+                
+               
+                
+                c.setCliente_id(rs.getInt("c.cliente_id"));
+                c.setNome(rs.getString("c.nome"));
+                i.setQtd(rs.getInt("i.qtd"));
+                obj.setTotal_venda(rs.getDouble("v.total_venda"));
+                obj.setCliente(c);
+                obj.setItemvenda(i);
+                
+                
+                
+                lista.add(obj);
+                
+            }
+            
+            return lista;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível retornar as vendas : " + " " + e);
+            return null;
+        }
+        
+    }
+    
+    //RELATORIO DAS VENDAS REALIZADAS NO DIA 
+   public List<VendaModel> RelatorioDiario(){
+    
+        try {
+            //Criar a lista de produtos que sera alimentada pelo select
+            List<VendaModel> lista = new ArrayList<>();
+            
+            //Criar consulta sql
+            String sql = "select v.cliente_id, v.total_venda, v.data_venda, u.nome from tb_venda as v \n" +
+                    "inner join tb_usuario as u on (u.usuario_id = v.usuario_id )\n" +  
+                    "where v.status_venda = 'F' and DATE_FORMAT(data_venda, '%Y-%m-%d') = CURDATE()";
+                       
+            PreparedStatement stmt = con.prepareStatement(sql);
+        
+            
+            ResultSet rs = stmt.executeQuery();
+       
+            while(rs.next()){
+                VendaModel obj = new VendaModel();
+                UsuarioModel u = new UsuarioModel();
+                ClienteModel c = new ClienteModel();
+                
+                c.setCliente_id(rs.getInt("v.cliente_id"));
+                obj.setCliente(c);
+                obj.setTotal_venda(rs.getDouble("v.total_venda"));
+                obj.setData_venda(rs.getString("v.data_venda"));
+                u.setNome(rs.getString("u.nome"));
+                obj.setUsuario(u);
+
+                lista.add(obj);
+                
+            }
+            
+            return lista;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível retornar as vendas : " + " " + e);
             return null;
         }
         

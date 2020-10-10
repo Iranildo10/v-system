@@ -6,6 +6,7 @@ public class VendaModel {
     private int venda_id;
     private ClienteModel cliente;
     private UsuarioModel usuario;
+    private ItemVendaModel itemvenda;
     private String data_venda;
     private String observacao;
     private double total_venda;
@@ -13,6 +14,14 @@ public class VendaModel {
 
     public int getVenda_id() {
         return venda_id;
+    }
+
+    public ItemVendaModel getItemvenda() {
+        return itemvenda;
+    }
+
+    public void setItemvenda(ItemVendaModel itemvenda) {
+        this.itemvenda = itemvenda;
     }
 
     public void setVenda_id(int venda_id) {
