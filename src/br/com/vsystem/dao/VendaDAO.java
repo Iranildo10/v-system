@@ -203,10 +203,11 @@ public class VendaDAO {
                 
                 c.setCliente_id(rs.getInt("c.cliente_id"));
                 c.setNome(rs.getString("c.nome"));
-                i.setQtd(rs.getInt("i.qtd"));
-                obj.setTotal_venda(rs.getDouble("v.total_venda"));
                 obj.setCliente(c);
+                i.setQtd(rs.getInt("i.qtd"));
                 obj.setItemvenda(i);
+                obj.setTotal_venda(rs.getDouble("v.total_venda"));
+                
                 
                 
                 

@@ -36,7 +36,7 @@ public class frmRelatorios extends javax.swing.JFrame {
             p.setAlignment(1);
             documento.add(p);
             
-            p = new Paragraph("");
+            p = new Paragraph("          ");
             documento.add(p);
             
             PdfPTable table = new PdfPTable(4);
@@ -518,22 +518,14 @@ public class frmRelatorios extends javax.swing.JFrame {
         
         VendaDAO dao = new VendaDAO();
         
-        List<VendaModel> lista = dao.listarVendasPorPeriodo(data_inicio, data_fim);
+        List<VendaModel> lista = dao.RelatorioVendasCliente(data_inicio, data_fim);
         
         DefaultTableModel dados = (DefaultTableModel) tabelaRelatorioCliente.getModel();
         dados.setNumRows(0);
         
         for (VendaModel v : lista) {
             
-            String status_venda = "";
-            
-            if(v.getStatus_venda().equals("F")){
-                status_venda = "Finalizada";
-            }
-            if(v.getStatus_venda().equals("C")){
-                status_venda = "Cancelada";
-            }
-                        
+                                    
             dados.addRow(new Object[]{
                 v.getCliente().getCliente_id(),
                 v.getCliente().getNome(),
