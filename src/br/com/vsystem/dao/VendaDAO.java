@@ -221,8 +221,8 @@ public class VendaDAO {
             JOptionPane.showMessageDialog(null, "Não foi possível retornar as vendas : " + " " + e);
             return null;
         }
-        
     }
+    
     
     //RELATORIO DAS VENDAS REALIZADAS NO DIA 
    public List<VendaModel> RelatorioDiario(){
@@ -265,6 +265,56 @@ public class VendaDAO {
         }
         
     }
+   
+   public List<VendaModel> RelatorioVendasProdutos(LocalDate data_inicio, LocalDate data_fim){
+    
+        try {
+            //Criar a lista de produtos que sera alimentada pelo select
+            List<VendaModel> lista = new ArrayList<>();
+            
+            //Criar consulta sql
+            String sql = "select i.produto_id, p.descricao, i.qtd  from tb_itensvenda as i \n" +
+                         "inner join tb_produto as p \n" +
+                         "on (p.produto_id = i.produto_id) \n" + 
+                         "inner join tb_venda as v \n "+
+                         "on (v.venda_id = i.venda_id) \n" +
+                         "where v.data_venda BETWEEN ? AND ? " ;  
+      
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, data_inicio.toString() + " 00:00:00");
+            stmt.setString(2, data_fim.toString() + " 23:59:00 ");
+            
+            ResultSet rs = stmt.executeQuery();
+       
+            while(rs.next()){
+                VendaModel obj = new VendaModel();
+                ProdutoModel p = new ProdutoModel();
+                ItemVendaModel i = new ItemVendaModel();
+                
+               
+                
+                p.setProduto_id(rs.getInt("i.produto_id"));
+                p.setDescricao(rs.getString("p.descricao"));
+                obj.setProduto(p);
+                obj.setItemvenda(i);
+                i.setQtd(rs.getInt("i.qtd"));
+                
+              
+                
+                lista.add(obj);
+                
+            }
+            
+            return lista;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível retornar as vendas : " + " " + e);
+            return null;
+        }
+        
+    }
+   
     
     //Cancelar venda
     public void cancelarVenda(int venda_id){
