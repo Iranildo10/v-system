@@ -185,7 +185,8 @@ public class VendaDAO {
                          "on (v.cliente_id = c.cliente_id) \n" + 
                          "inner join tb_itensvenda as i \n" +
                          "on (i.venda_id = v.venda_id) \n" +
-                         "where v.data_venda BETWEEN ? AND ?";  
+                         "where i.qtd >= (select avg(qtd) from tb_itensvenda) \n" +
+                         "and v.data_venda BETWEEN ? AND ?";  
       
             PreparedStatement stmt = con.prepareStatement(sql);
             
@@ -278,7 +279,8 @@ public class VendaDAO {
                          "on (p.produto_id = i.produto_id) \n" + 
                          "inner join tb_venda as v \n "+
                          "on (v.venda_id = i.venda_id) \n" +
-                         "where v.data_venda BETWEEN ? AND ? " ;  
+                         "where i.qtd >= (select avg(qtd) from tb_itensvenda) \n" +
+                         "and v.data_venda BETWEEN ? AND ? " ;  
       
             PreparedStatement stmt = con.prepareStatement(sql);
             
