@@ -400,7 +400,8 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_item_menu_trocarUsuarioActionPerformed
 
     private void item_menu_controleEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_menu_controleEstoqueActionPerformed
-        // TODO add your handling code here:
+        frmEstoque produto = new frmEstoque();
+        produto.setVisible(true);
     }//GEN-LAST:event_item_menu_controleEstoqueActionPerformed
 
     private void item_menu_posicaoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_menu_posicaoDiaActionPerformed
