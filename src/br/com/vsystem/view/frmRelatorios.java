@@ -543,7 +543,7 @@ public class frmRelatorios extends javax.swing.JFrame {
                 cel1 = new PdfPCell(new Paragraph("Código Cliente"));
                 cel2 = new PdfPCell(new Paragraph("Nome"));
                 cel3 = new PdfPCell(new Paragraph("Qtd. Compras"));
-                cel4 = new PdfPCell(new Paragraph("Vaçor total"));
+                cel4 = new PdfPCell(new Paragraph("Valor total"));
                 
                 table.addCell(cel1);
                 table.addCell(cel2);
