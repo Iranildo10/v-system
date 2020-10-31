@@ -97,7 +97,7 @@ public class Utilitarios {
     public String retornaDataMundial(){
         
         Date agora = new Date();
-        SimpleDateFormat dataM = new SimpleDateFormat("yyyy/MM/dd HH/mm/ss");// hh/mm/ss
+        SimpleDateFormat dataM = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");// hh/mm/ss
         String dataformatada = dataM.format(agora);
         
         return dataformatada;

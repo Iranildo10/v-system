@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class frmEstoque extends javax.swing.JFrame {
 
     
-    int id_produto, qtd_nova, qtd_estoque, qtd_adicional;
+    int id_produto, qtd_nova, qtd_inicial, qtd_adicionada;
     
     public frmEstoque() {
         initComponents();
@@ -298,27 +298,19 @@ public class frmEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        try {
-            
-            Object[] options = { "Sim", "Não" };
-        switch (JOptionPane.showOptionDialog(null, "Deseja realmente alterar o estoque?", "Confirmação", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options[0])) {
-            case 0:
-                qtd_estoque = Integer.parseInt(txtestoque.getText());
-                qtd_adicional = Integer.parseInt(txtqtdadicional.getText());
-                qtd_nova = qtd_estoque + qtd_adicional;
-                ProdutoDAO dao = new ProdutoDAO();
-                dao.baixaEstoque(id_produto, qtd_nova);
-                break;
-            case 1:
-                break;
-        }
-            
-            qtd_estoque = Integer.parseInt(txtestoque.getText());
-            qtd_adicional = 0;
-            qtd_nova = qtd_estoque + qtd_adicional;
-            
-        } catch (Exception e) {
-        }
+
+                qtd_inicial = Integer.parseInt(txtestoque.getText());
+                qtd_adicionada = Integer.parseInt(txtqtdadicional.getText());
+                qtd_nova = qtd_inicial + qtd_adicionada;
+                
+                
+                frmAlteracaoEstoque telaAlteracaoEstoque = new frmAlteracaoEstoque();
+                telaAlteracaoEstoque.id_produto = id_produto;
+                telaAlteracaoEstoque.qtd_inicial = qtd_inicial;
+                telaAlteracaoEstoque.qtd_adicionada = qtd_adicionada;
+                telaAlteracaoEstoque.qtd_nova = qtd_nova;
+                telaAlteracaoEstoque.setVisible(true);
+          
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void txtpesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpesquisaKeyPressed
