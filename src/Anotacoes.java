@@ -2,10 +2,8 @@
 public class Anotacoes {
     /*
     
-    Validações Necessárias:
-    
-    - Antes de cadastrar cliente, funcionario, fornecedor.. validar se o CPF/CNPJ ja esta cadastrado no banco
-    - Deixar os botões Editar, Salvar e Exclir desativados, ativar somente quando necessário
+    *justificativa na hora de alterar o estoque
+    *colocar nomes nos niveis de acesso 1 e 2(administrador e vendedor)
     
     */
 }
