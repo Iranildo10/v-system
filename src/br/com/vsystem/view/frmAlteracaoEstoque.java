@@ -3,10 +3,12 @@ package br.com.vsystem.view;
 
 import br.com.vsystem.dao.AlteracaoEstoqueDAO;
 import br.com.vsystem.dao.ProdutoDAO;
+import br.com.vsystem.dao.UsuarioDAO;
 import br.com.vsystem.model.AlteracaoEstoqueModel;
 import br.com.vsystem.model.ProdutoModel;
 import br.com.vsystem.model.UsuarioModel;
 import br.com.vsystem.model.Utilitarios;
+import javax.swing.JOptionPane;
 
 
 public class frmAlteracaoEstoque extends javax.swing.JFrame {
@@ -144,55 +146,42 @@ public class frmAlteracaoEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcodigoActionPerformed
 
     private void btnnovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnovoActionPerformed
-        /*
+        
         try {
             String codigo, senha;
             codigo = txtcodigo.getText();
             senha = txtsenha.getText();
 
-            UsuarioDAO dao = new UsuarioDAO();
+            UsuarioDAO daoU = new UsuarioDAO();
+         
+            if (daoU.validaUsuarioSenha(codigo, senha)) {
+                
+                ProdutoDAO dao = new ProdutoDAO();
+                dao.baixaEstoque(id_produto, qtd_nova);
 
-            if (dao.efetuaLogin(codigo, senha)) {
+                AlteracaoEstoqueModel alteracaoEstoque = new AlteracaoEstoqueModel();
+                Utilitarios util = new Utilitarios();
+                String datamysql = util.retornaDataMundial();
+                alteracaoEstoque.setData_alteracao(datamysql);
+                alteracaoEstoque.setQtd_inicial(qtd_inicial);
+                alteracaoEstoque.setQtd_adicionada(qtd_adicionada);
+                UsuarioModel usuario = new UsuarioModel();
+                usuario.setUsusario_id(Integer.parseInt(txtcodigo.getText()));
+                alteracaoEstoque.setUsuario(usuario);
+                ProdutoModel produto = new ProdutoModel();
+                produto.setProduto_id(id_produto);
+                alteracaoEstoque.setProduto(produto);
+                alteracaoEstoque.setMotivo_alteracao(txtmotivoalteracao.getText());
+
+                AlteracaoEstoqueDAO alteracaoEstoqueDAO = new AlteracaoEstoqueDAO();
+                alteracaoEstoqueDAO.cadastrarAlteracaoEstoque(alteracaoEstoque);
                 this.dispose();
-                //new frmSplash().setVisible(true);
+                
             }
-
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
         }
-        */
-        
-    
-         ProdutoDAO dao = new ProdutoDAO();
-         dao.baixaEstoque(id_produto, qtd_nova);
-         
-         AlteracaoEstoqueModel alteracaoEstoque = new AlteracaoEstoqueModel();
-         Utilitarios util = new Utilitarios();
-         String datamysql = util.retornaDataMundial();
-         alteracaoEstoque.setData_alteracao(datamysql);
-         alteracaoEstoque.setQtd_inicial(qtd_inicial);
-         alteracaoEstoque.setQtd_adicionada(qtd_adicionada);
-         UsuarioModel usuario = new UsuarioModel();
-         usuario.setUsusario_id(Integer.parseInt(txtcodigo.getText()));
-         alteracaoEstoque.setUsuario(usuario);
-         ProdutoModel produto = new ProdutoModel();
-         produto.setProduto_id(id_produto);
-         alteracaoEstoque.setProduto(produto);
-         alteracaoEstoque.setMotivo_alteracao(txtmotivoalteracao.getText());
-         
-         System.out.println(datamysql);
-         System.out.println(qtd_inicial);
-         System.out.println(qtd_adicionada);
-         System.out.println(txtcodigo.getText());
-         System.out.println(id_produto);
-         System.out.println(txtmotivoalteracao.getText());
-         
-         AlteracaoEstoqueDAO alteracaoEstoqueDAO = new AlteracaoEstoqueDAO();
-         alteracaoEstoqueDAO.cadastrarAlteracaoEstoque(alteracaoEstoque);
-         
-         
-         
-         
         
     }//GEN-LAST:event_btnnovoActionPerformed
 

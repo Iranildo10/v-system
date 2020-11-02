@@ -5,6 +5,7 @@ import br.com.vsystem.model.ClienteModel;
 import br.com.vsystem.model.UsuarioModel;
 import br.com.vsystem.model.EnderecoModel;
 import br.com.vsystem.model.TelefoneModel;
+import br.com.vsystem.view.frmAlteracaoEstoque;
 import br.com.vsystem.view.frmMenu;
 import br.com.vsystem.view.frmSplash;
 import java.sql.Connection;
@@ -300,14 +301,41 @@ public class UsuarioDAO {
                 frmSplash splash = new frmSplash();
                 splash.usuario_logado = usuario;
                 splash.setVisible(true);
-               
-                
+           
                 return true;
-                
                 
             }
             else
                 JOptionPane.showMessageDialog(null, "Nao foi possivel logar no sistema!!");
+                
+                return false;
+            
+        } catch (SQLException erro) {
+             JOptionPane.showMessageDialog(null, "Erro: " + erro);
+           
+             return false;
+        }
+    }
+    
+    public boolean validaUsuarioSenha(String codigo, String senha){
+        try {
+            //1 passo -SQl
+            String sql = "select * from tb_usuario where usuario_id = ? and senha = ?";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, codigo);
+            stmt.setString(2, senha );
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next()){
+                
+                return true;
+                
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Usuario ou senha incorretos!!");
                 
                 return false;
             
