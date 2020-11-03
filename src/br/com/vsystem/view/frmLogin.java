@@ -6,6 +6,7 @@
 package br.com.vsystem.view;
 
 import br.com.vsystem.dao.UsuarioDAO;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -103,6 +104,12 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel26.setText("Senha:");
 
+        txtsenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtsenhaKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -188,6 +195,30 @@ public class frmLogin extends javax.swing.JFrame {
     private void txtcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtcodigoActionPerformed
+
+    private void txtsenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsenhaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { 
+          
+            try {
+            String codigo, senha;
+            codigo = txtcodigo.getText();
+            senha = txtsenha.getText();
+            
+            UsuarioDAO dao = new UsuarioDAO();
+            
+            if (dao.efetuaLogin(codigo, senha)) {
+                this.dispose();
+                //new frmSplash().setVisible(true);
+            }
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+        }
+         
+         }
+    }//GEN-LAST:event_txtsenhaKeyPressed
 
     /**
      * @param args the command line arguments

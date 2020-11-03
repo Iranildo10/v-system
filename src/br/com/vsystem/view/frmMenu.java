@@ -400,8 +400,8 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_item_menu_trocarUsuarioActionPerformed
 
     private void item_menu_controleEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_menu_controleEstoqueActionPerformed
-        frmEstoque produto = new frmEstoque();
-        produto.setVisible(true);
+        frmEstoque estoque = new frmEstoque();
+        estoque.setVisible(true);
     }//GEN-LAST:event_item_menu_controleEstoqueActionPerformed
 
     private void item_menu_posicaoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_menu_posicaoDiaActionPerformed
@@ -409,12 +409,15 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_item_menu_posicaoDiaActionPerformed
 
     private void menu_sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_sairMouseClicked
-        Object[] options = { "Sim", "Não" };
+        Object[] options = { "Sair", "Logoff" };
         switch (JOptionPane.showOptionDialog(null, "Deseja fechar o sistema?", "Confirmação", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options[0])) {
             case 0:
                 this.dispose();
                 break;
             case 1:
+                frmLogin login = new frmLogin();
+                login.setVisible(true);
+                this.dispose();
                 break;
         }
             

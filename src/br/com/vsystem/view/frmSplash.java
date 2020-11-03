@@ -96,7 +96,8 @@ public class frmSplash extends javax.swing.JFrame {
                     lblporcentagem.setText(String.valueOf(i) + "%");
                     
                     try{
-                        sleep(30);
+                        sleep(15
+                        );
                     }catch(Exception e){
                     }
                 }

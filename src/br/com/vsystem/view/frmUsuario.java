@@ -329,7 +329,7 @@ public class frmUsuario extends javax.swing.JFrame {
         jLabel31.setText("Nível de acesso:");
 
         cbnivel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        cbnivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
+        cbnivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 - Administrador", "2 - Vendedor" }));
         cbnivel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbnivelActionPerformed(evt);
@@ -720,7 +720,14 @@ public class frmUsuario extends javax.swing.JFrame {
         fun.setCpf(txtcpf.getText());
         fun.setSenha(txtSenha.getText());
         fun.setCargo(txtcargo.getText());
-        fun.setNievel_acesso(cbnivel.getSelectedItem().toString());
+        
+        if(cbnivel.getSelectedItem().toString().equals("1 - Administrador")){
+            fun.setNievel_acesso("1");
+        }
+        if(cbnivel.getSelectedItem().toString().equals("2 - Vendedor")){
+            fun.setNievel_acesso("2");
+        }
+        
         fun.setApagado("N");
         
         end.setCep(txtcep.getText());
@@ -762,7 +769,13 @@ public class frmUsuario extends javax.swing.JFrame {
         fun.setCpf(txtcpf.getText());
         fun.setSenha(txtSenha.getText());
         fun.setCargo(txtcargo.getText());
-        fun.setNievel_acesso(cbnivel.getSelectedItem().toString());
+        if(cbnivel.getSelectedItem().toString().equals("1 - Administrador")){
+            fun.setNievel_acesso("1");
+        }
+        if(cbnivel.getSelectedItem().toString().equals("2 - Vendedor")){
+            fun.setNievel_acesso("2");
+        }
+        
         fun.setApagado("N");
         
         end.setCep(txtcep.getText());
