@@ -22,6 +22,18 @@ public class frmEstoque extends javax.swing.JFrame {
     
     public frmEstoque() {
         initComponents();
+        
+        /*
+        tabelaAlteracaoEstoque.setAutoResizeMode(tabelaAlteracaoEstoque.AUTO_RESIZE_OFF);
+        tabelaAlteracaoEstoque.getColumnModel().getColumn(0).setPreferredWidth(150);
+        */
+        
+        tabelaProduto.setAutoResizeMode(tabelaProduto.AUTO_RESIZE_OFF);
+        tabelaProduto.getColumnModel().getColumn(0).setPreferredWidth(70);
+        tabelaProduto.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tabelaProduto.getColumnModel().getColumn(2).setPreferredWidth(70);
+        tabelaProduto.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tabelaProduto.getColumnModel().getColumn(4).setPreferredWidth(300);
     }
 
     /**

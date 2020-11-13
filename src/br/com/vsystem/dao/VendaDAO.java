@@ -342,4 +342,62 @@ public class VendaDAO {
         }
     }
     
+    public int listarTotalVendasPorPeriodo(LocalDate data_inicio, LocalDate data_fim){
+    
+        try {
+            
+            int totalVendas = 0;
+            
+            String sql = "SELECT total_venda FROM tb_venda WHERE (data_venda BETWEEN ? AND ?) AND (status_venda = 'F') \n";
+                         
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, data_inicio.toString() + " 00:00:00");
+            stmt.setString(2, data_fim.toString() + " 23:59:00 ");
+            
+            ResultSet rs = stmt.executeQuery();
+       
+            while(rs.next()){
+                totalVendas = totalVendas + (rs.getInt("total_venda"));
+                
+            }
+            
+            return totalVendas;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível retornar o total de vendas : " + " " + e);
+            return 0;
+        }
+        
+    }
+    
+    public int listarTotalCancelamentosPorPeriodo(LocalDate data_inicio, LocalDate data_fim){
+    
+        try {
+            
+            int totalCancelamentos = 0;
+            
+            String sql = "SELECT total_venda FROM tb_venda WHERE (data_venda BETWEEN ? AND ?) AND (status_venda = 'C') \n";
+                         
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, data_inicio.toString() + " 00:00:00");
+            stmt.setString(2, data_fim.toString() + " 23:59:00 ");
+            
+            ResultSet rs = stmt.executeQuery();
+       
+            while(rs.next()){
+                totalCancelamentos = totalCancelamentos + (rs.getInt("total_venda"));
+                
+            }
+            
+            return totalCancelamentos;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível retornar o total de vendas : " + " " + e);
+            return 0;
+        }
+        
+    }
+    
 }

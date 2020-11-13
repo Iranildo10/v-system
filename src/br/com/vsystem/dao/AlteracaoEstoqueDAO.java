@@ -58,8 +58,10 @@ public class AlteracaoEstoqueDAO {
             List<AlteracaoEstoqueModel> lista = new ArrayList<>();
             
             //Criar consulta sql
-            String sql = "SELECT DATE_FORMAT(ae.data_alteracao, '%Y/%m/%d %H:%i:%s') as data_alteracao, ae.qtd_inicial, ae.qtd_adicionada, ae.usuario_alteracao_id, ae.produto_id, ae.motivo_alteracao \n" +
-                         "FROM tb_alteracaoestoque as ae \n" +
+            String sql = "SELECT DATE_FORMAT(ae.data_alteracao, '%d/%m/%Y %H:%i:%s') as data_alteracao, ae.qtd_inicial, ae.qtd_adicionada, u.nome, p.descricao, ae.motivo_alteracao  FROM tb_alteracaoestoque AS ae \n" +
+                         "INNER JOIN tb_produto AS p \n" +
+                         "INNER JOIN tb_usuario AS u \n" +
+                         "ON (ae.produto_id = p.produto_id AND ae.usuario_alteracao_id = u.usuario_id) \n" +
                          "WHERE ae.data_alteracao BETWEEN ? AND ?";
             
             //v.data_venda BETWEEN ? AND ?
@@ -78,10 +80,10 @@ public class AlteracaoEstoqueDAO {
                 obj.setQtd_inicial(rs.getInt("ae.qtd_inicial"));
                 obj.setQtd_adicionada(rs.getInt("ae.qtd_adicionada"));
                 UsuarioModel u = new UsuarioModel();
-                u.setUsusario_id(rs.getInt("ae.usuario_alteracao_id"));
+                u.setNome(rs.getString("u.nome"));
                 obj.setUsuario(u);
                 ProdutoModel p = new ProdutoModel();
-                p.setProduto_id(rs.getInt("ae.produto_id"));
+                p.setDescricao(rs.getString("p.descricao"));
                 obj.setProduto(p);
                 obj.setMotivo_alteracao(rs.getString("ae.motivo_alteracao"));
                 

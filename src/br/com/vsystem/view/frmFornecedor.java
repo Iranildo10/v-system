@@ -81,17 +81,19 @@ public class frmFornecedor extends javax.swing.JFrame {
         
         tabelaFornecedores.setAutoResizeMode(tabelaFornecedores.AUTO_RESIZE_OFF);
         tabelaFornecedores.getColumnModel().getColumn(0).setPreferredWidth(55);
-        tabelaFornecedores.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tabelaFornecedores.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tabelaFornecedores.getColumnModel().getColumn(3).setPreferredWidth(115);
-        tabelaFornecedores.getColumnModel().getColumn(4).setPreferredWidth(110);
-        tabelaFornecedores.getColumnModel().getColumn(5).setPreferredWidth(70);
-        tabelaFornecedores.getColumnModel().getColumn(6).setPreferredWidth(200);
+        tabelaFornecedores.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tabelaFornecedores.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tabelaFornecedores.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tabelaFornecedores.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tabelaFornecedores.getColumnModel().getColumn(5).setPreferredWidth(150);
+        tabelaFornecedores.getColumnModel().getColumn(6).setPreferredWidth(150);
         tabelaFornecedores.getColumnModel().getColumn(7).setPreferredWidth(200);
-        tabelaFornecedores.getColumnModel().getColumn(8).setPreferredWidth(55);
-        tabelaFornecedores.getColumnModel().getColumn(9).setPreferredWidth(40);
-        tabelaFornecedores.getColumnModel().getColumn(10).setPreferredWidth(200);
-        tabelaFornecedores.getColumnModel().getColumn(11).setPreferredWidth(100);
+        tabelaFornecedores.getColumnModel().getColumn(8).setPreferredWidth(200);
+        tabelaFornecedores.getColumnModel().getColumn(9).setPreferredWidth(300);
+        tabelaFornecedores.getColumnModel().getColumn(10).setPreferredWidth(55);
+        tabelaFornecedores.getColumnModel().getColumn(11).setPreferredWidth(55);
+        tabelaFornecedores.getColumnModel().getColumn(12).setPreferredWidth(100);
+        tabelaFornecedores.getColumnModel().getColumn(13).setPreferredWidth(120);
         
     }
 
@@ -597,8 +599,8 @@ public class frmFornecedor extends javax.swing.JFrame {
                 f.getFornecedor_id(),
                 f.getNome_fantasia(),
                 f.getRazao_social(),
-                f.getCnpj(),
                 f.getEmail(),
+                f.getCnpj(),
                 f.getTelefone().getCelular(),
                 f.getTelefone().getTelefone(),
                 f.getEndereco().getCep(),
@@ -771,8 +773,9 @@ public class frmFornecedor extends javax.swing.JFrame {
                 f.getFornecedor_id(),
                 f.getNome_fantasia(),
                 f.getRazao_social(),
-                f.getCnpj(),
                 f.getEmail(),
+                f.getCnpj(),
+                
                 f.getTelefone().getCelular(),
                 f.getTelefone().getTelefone(),
                 f.getEndereco().getCep(),

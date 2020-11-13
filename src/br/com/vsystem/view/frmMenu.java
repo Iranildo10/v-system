@@ -405,7 +405,8 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_item_menu_controleEstoqueActionPerformed
 
     private void item_menu_posicaoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_menu_posicaoDiaActionPerformed
-        // TODO add your handling code here:
+        frmPosicaoDia telaPosicaoDia = new frmPosicaoDia();
+        telaPosicaoDia.setVisible(true);
     }//GEN-LAST:event_item_menu_posicaoDiaActionPerformed
 
     private void menu_sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_sairMouseClicked
