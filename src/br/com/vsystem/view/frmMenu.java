@@ -77,6 +77,7 @@ public class frmMenu extends javax.swing.JFrame {
         menu_config = new javax.swing.JMenu();
         item_menu_trocarUsuario = new javax.swing.JMenuItem();
         menu_relatorios = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menu_sair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -278,6 +279,20 @@ public class frmMenu extends javax.swing.JFrame {
 
         menu_relatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/business_report_48px.png"))); // NOI18N
         menu_relatorios.setText("Relatorios");
+        menu_relatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_relatoriosActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setText("Relatórios");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menu_relatorios.add(jMenuItem1);
+
         jMenuBar1.add(menu_relatorios);
 
         menu_sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/sair.png"))); // NOI18N
@@ -424,6 +439,17 @@ public class frmMenu extends javax.swing.JFrame {
             
     }//GEN-LAST:event_menu_sairMouseClicked
 
+    private void menu_relatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_relatoriosActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_menu_relatoriosActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        frmRelatorios tela = new frmRelatorios();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -479,6 +505,7 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblhora;
     private javax.swing.JLabel lblusuario;
