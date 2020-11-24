@@ -7,6 +7,7 @@ package br.com.vsystem.view;
 
 import br.com.vsystem.dao.ProdutoDAO;
 import br.com.vsystem.model.ProdutoModel;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +35,10 @@ public class frmEstoque extends javax.swing.JFrame {
         tabelaProduto.getColumnModel().getColumn(2).setPreferredWidth(70);
         tabelaProduto.getColumnModel().getColumn(3).setPreferredWidth(100);
         tabelaProduto.getColumnModel().getColumn(4).setPreferredWidth(300);
+        setIcon();
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
     /**

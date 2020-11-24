@@ -10,6 +10,7 @@ import br.com.vsystem.model.Utilitarios;
 import br.com.vsystem.model.VendaModel;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -36,6 +37,10 @@ public class frmHistoricoAlteracaoEstoque extends javax.swing.JFrame {
         tabelaAlteracaoEstoque.getColumnModel().getColumn(3).setPreferredWidth(200);
         tabelaAlteracaoEstoque.getColumnModel().getColumn(4).setPreferredWidth(200);
         tabelaAlteracaoEstoque.getColumnModel().getColumn(5).setPreferredWidth(200);
+        setIcon();
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
    

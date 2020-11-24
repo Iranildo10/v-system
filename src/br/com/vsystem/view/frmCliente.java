@@ -10,6 +10,7 @@ import br.com.vsystem.model.ClienteModel;
 import br.com.vsystem.model.EnderecoModel;
 import br.com.vsystem.model.TelefoneModel;
 import br.com.vsystem.model.Utilitarios;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -95,7 +96,10 @@ public class frmCliente extends javax.swing.JFrame {
         tabelaClientes.getColumnModel().getColumn(9).setPreferredWidth(40);
         tabelaClientes.getColumnModel().getColumn(10).setPreferredWidth(200);
         tabelaClientes.getColumnModel().getColumn(11).setPreferredWidth(100);
-        
+        setIcon();
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
     /**

@@ -8,6 +8,7 @@ import br.com.vsystem.model.Utilitarios;
 import br.com.vsystem.model.VendaModel;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -27,6 +28,10 @@ public class frmHistorico extends javax.swing.JFrame {
         txtdatainicio.setText(util.retornaDataBR2());
         txtdatafim.setText(util.retornaDataBR2());
         btncancelarvenda.setEnabled(false);
+        setIcon();
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
    

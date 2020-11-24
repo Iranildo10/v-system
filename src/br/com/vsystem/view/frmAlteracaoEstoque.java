@@ -8,6 +8,7 @@ import br.com.vsystem.model.AlteracaoEstoqueModel;
 import br.com.vsystem.model.ProdutoModel;
 import br.com.vsystem.model.UsuarioModel;
 import br.com.vsystem.model.Utilitarios;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 
@@ -17,6 +18,10 @@ public class frmAlteracaoEstoque extends javax.swing.JFrame {
     
     public frmAlteracaoEstoque() {
         initComponents();
+        setIcon();
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
    

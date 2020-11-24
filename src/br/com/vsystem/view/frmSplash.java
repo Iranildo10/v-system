@@ -3,6 +3,7 @@ package br.com.vsystem.view;
 
 
 import br.com.vsystem.model.UsuarioModel;
+import java.awt.Toolkit;
 import static java.lang.Thread.sleep;
 
 public class frmSplash extends javax.swing.JFrame {
@@ -12,6 +13,10 @@ public class frmSplash extends javax.swing.JFrame {
     
     public frmSplash() {
         initComponents();
+        setIcon();
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
     /**

@@ -8,6 +8,7 @@ import br.com.vsystem.model.EnderecoModel;
 import br.com.vsystem.model.FornecedorModel;
 import br.com.vsystem.model.TelefoneModel;
 import br.com.vsystem.model.Utilitarios;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -94,7 +95,10 @@ public class frmFornecedor extends javax.swing.JFrame {
         tabelaFornecedores.getColumnModel().getColumn(11).setPreferredWidth(55);
         tabelaFornecedores.getColumnModel().getColumn(12).setPreferredWidth(100);
         tabelaFornecedores.getColumnModel().getColumn(13).setPreferredWidth(120);
-        
+        setIcon();
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
   

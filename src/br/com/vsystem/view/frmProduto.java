@@ -10,6 +10,7 @@ import br.com.vsystem.model.FornecedorModel;
 import br.com.vsystem.model.ProdutoModel;
 import br.com.vsystem.model.TelefoneModel;
 import br.com.vsystem.model.Utilitarios;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -77,7 +78,10 @@ public class frmProduto extends javax.swing.JFrame {
         tabelaProduto.getColumnModel().getColumn(3).setPreferredWidth(115);
         tabelaProduto.getColumnModel().getColumn(4).setPreferredWidth(150);
         tabelaProduto.getColumnModel().getColumn(5).setPreferredWidth(200);
-              
+        setIcon();
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
     /**

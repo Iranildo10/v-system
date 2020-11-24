@@ -11,6 +11,7 @@ import br.com.vsystem.model.ProdutoModel;
 import br.com.vsystem.model.UsuarioModel;
 import br.com.vsystem.model.Utilitarios;
 import br.com.vsystem.model.VendaModel;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -35,8 +36,11 @@ public class frmPagamentos extends javax.swing.JFrame {
         txttroco.setText("0");
         txttroco.setEnabled(false);
         txttotal.setEnabled(false);
-
+        setIcon();
                 
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
     /**

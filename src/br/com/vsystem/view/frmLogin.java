@@ -6,6 +6,7 @@
 package br.com.vsystem.view;
 
 import br.com.vsystem.dao.UsuarioDAO;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -20,7 +21,12 @@ public class frmLogin extends javax.swing.JFrame {
      */
     public frmLogin() {
         initComponents();
+        setIcon();
     }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

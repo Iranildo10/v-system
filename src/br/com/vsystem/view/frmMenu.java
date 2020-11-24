@@ -8,6 +8,7 @@ package br.com.vsystem.view;
 import br.com.vsystem.model.UsuarioModel;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -29,8 +30,11 @@ public class frmMenu extends javax.swing.JFrame {
     
     public frmMenu() {
         initComponents();
+        setIcon();
         
-
+    }
+     private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_cheap_2_32.png")));
     }
 
     /**
